@@ -1,0 +1,16 @@
+<ion-view view-title="Ionic Hello World: Greeting">
+  <form name="ctrl.form" novalidate="novalidate" ng-submit="ctrl.submit()">
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Greeting</h1>
+    </ion-header-bar>
+    <ion-content padding="true">
+      <div class="list">
+        Hello, {{ctrl.greeting.name|default:"Anonymous"}}
+      </div>
+    </ion-content>
+    <ion-footer-bar class="bar-light">
+      <a ui-sref="home({back:true})" nav-direction="back" class="button icon-left ion-chevron-left button-clear button-dark">Back</a>
+      <button type="submit" class="button icon-right ion-chevron-right button-clear button-dark">Forward</button>
+    </ion-footer-bar>
+  </form>
+</ion-view>

@@ -1,0 +1,17 @@
+<ion-view view-title="Ionic Hello World">
+  <form name="ctrl.form" novalidate="novalidate" ng-submit="ctrl.submit()">
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Hello</h1>
+    </ion-header-bar>
+    <ion-content padding="true">
+      <div class="list">
+        <item-input label="Enter your name">
+          <input form="ctrl.form" placeholder="World" name="name" ng-model="ctrl.greeting.name">
+        </item-input>
+      </div>
+    </ion-content>
+    <ion-footer-bar class="bar-light">
+      <button type="submit" class="button icon-right ion-chevron-right button-clear button-dark">Forward</button>
+    </ion-footer-bar>
+  </form>
+</ion-view>
