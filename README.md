@@ -26,16 +26,16 @@ $ ionic resources
 ## Unit testing (constantly)
 
 ```
-$ grunt test
+$ grunt unit
 ```
 
 ## Unit testing (single run)
 
 ```
-$ grunt test:single
+$ grunt unit:single
 ```
 
-## Unit testing (end to end)
+## End to end testing
 
 ```
 $ grunt e2e
