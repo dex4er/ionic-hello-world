@@ -1,8 +1,8 @@
 'use strict';
 
 var _ = require('lodash');
-var path = require('path');
 var cordovaCli = require('cordova');
+var path = require('path');
 var spawn = process.platform === 'win32' ? require('win-spawn') : require('child_process').spawn;
 
 module.exports = function (grunt) {
@@ -30,11 +30,10 @@ module.exports = function (grunt) {
     // Environment Variables for Angular App
     // This creates an Angular Module that can be injected via ENV
     // Add any desired constants to the ENV objects below.
-    // https://github.com/diegonetto/generator-ionic/blob/master/docs/FAQ.md#how-do-i-add-constants
     ngconstant: {
       options: {
         space: '  ',
-        wrap: '"use strict";\n\n {%= __ngModule %}',
+        wrap: '\'use strict\';\n\n {%= __ngModule %}',
         name: 'config',
         dest: '<%= project.app %>/<%= project.scripts %>/configuration.js'
       },
@@ -64,7 +63,7 @@ module.exports = function (grunt) {
       },
       html: {
         files: ['<%= project.app %>/**/*.html'],
-        tasks: ['newer:copy:app']
+        tasks: ['ngtemplates:app']
       },
       css: {
         files: ['<%= project.app %>/<%= project.styles %>/*.css'],
@@ -76,7 +75,7 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= project.app %>/<%= project.styles %>/**/*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp']
+        tasks: ['compass:app', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
         files: ['Gruntfile.js'],
@@ -87,12 +86,14 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: 'localhost',
+        livereload: true,
+        open: true
       },
       dist: {
         options: {
+          port: 8100,
           base: '<%= project.dist %>'
         }
       },
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
           base: ['coverage']
         }
       },
-      serve: {
+      app: {
         options: {
           port: 8100,
           base: '<%= project.app %>'
@@ -141,7 +142,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.temp'
+      app: '.temp'
     },
 
     autoprefixer: {
@@ -192,7 +193,7 @@ module.exports = function (grunt) {
           generatedImagesDir: '<%= project.dist %>/<%= project.images %>/generated'
         }
       },
-      server: {
+      app: {
         options: {
           debugInfo: true
         }
@@ -263,8 +264,6 @@ module.exports = function (grunt) {
           src: [
             '<%= project.images %>/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '*.html',
-            'templates/**/*.html',
-            'fonts/*',
             'styles/*.css'
           ]
         }, {
@@ -299,6 +298,7 @@ module.exports = function (grunt) {
         src: [
           '**/*',
           '!**/*.(scss,sass,css)',
+          '!scripts/**/*.html',
         ]
       },
       tmp: {
@@ -316,14 +316,16 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
-      server: [
-        'compass:server',
+      app: [
+        'compass:app',
+        'ngtemplates:app',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
       ],
       test: [
         'compass',
+        'ngtemplates:app',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
@@ -394,6 +396,9 @@ module.exports = function (grunt) {
     // ngAnnotate tries to make the code safe for minification automatically by
     // using the Angular long form for dependency injection.
     ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
       dist: {
         files: [{
           expand: true,
@@ -419,6 +424,39 @@ module.exports = function (grunt) {
       build: {
         files: {
           '<%= project.app %>/index.html': '<%= project.app %>/index.html'
+        }
+      }
+    },
+
+    ngtemplates: {
+      app: {
+        cwd: '<%= project.app %>',
+        src: 'scripts/**/*.html',
+        dest: '<%= project.dist %>/templates/templates.js',
+        options: {
+          module: 'templates',
+          prefix: '',
+          standalone: true
+        }
+      },
+      dist: {
+        cwd: '<%= project.app %>',
+        src: 'scripts/**/*.html',
+        dest: '.temp/concat/<%= project.scripts %>/templates.js',
+        options: {
+          htmlmin: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true, // Only if you don't use comment directives!
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+          },
+          module: 'templates',
+          prefix: '',
+          standalone: true
         }
       }
     },
@@ -558,9 +596,9 @@ module.exports = function (grunt) {
   grunt.registerTask('e2e', [
     'selenium_standalone:e2e:install',
     'selenium_standalone:e2e:start',
-    'connect:serve',
     'wiredep',
     'init',
+    'connect:dist',
     'wdio',
     'selenium_standalone:e2e:stop'
   ]);
@@ -598,29 +636,29 @@ module.exports = function (grunt) {
   grunt.registerTask('build', function() {
     return grunt.task.run(['init', 'ionic:build:' + this.args.join()]);
   });
-
   grunt.registerTask('init', [
     'clean',
     'ngconstant:development',
     'wiredep',
     'includeSource',
-    'concurrent:server',
+    'concurrent:app',
     'autoprefixer',
     'newer:copy:app',
     'newer:copy:tmp'
   ]);
 
-
   grunt.registerTask('compress', [
     'clean',
     'ngconstant:production',
     'wiredep',
+    'includeSource',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'ngtemplates:dist',
     'cssmin',
     'uglify',
     'usemin',

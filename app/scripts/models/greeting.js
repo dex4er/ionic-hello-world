@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('ionicHelloWorldApp')
-.value('greeting', {
+.factory('greeting', function() {
+  return {
     name: null,
+  };
 });

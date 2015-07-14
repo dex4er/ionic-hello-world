@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('ionicHelloWorldApp', ['ionic', 'ionicState', 'lodash'])
+angular.module('ionicHelloWorldApp', [
+  'ionic',
+  'ionicState',
+  'lodash',
+  'templates'
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

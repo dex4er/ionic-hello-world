@@ -1,11 +1,11 @@
-<ion-view view-title="Ionic Hello World: Greeting">
-  <form name="ctrl.form" novalidate="novalidate" ng-submit="ctrl.submit()">
+<ion-view view-title="Ionic Hello World: Greeting" ng-controller="GreetingController as vm">
+  <form name="vm.form" novalidate="novalidate" ng-submit="vm.submit()">
     <ion-header-bar class="bar-positive">
       <h1 class="title">Greeting</h1>
     </ion-header-bar>
     <ion-content padding="true">
       <div class="list">
-        Hello, {{ctrl.greeting.name|default:"Anonymous"}}
+        Hello, {{vm.greeting.name|default:"Anonymous"}}
       </div>
     </ion-content>
     <ion-footer-bar class="bar-light">
