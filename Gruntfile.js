@@ -282,7 +282,7 @@ module.exports = function (grunt) {
       fonts: {
         expand: true,
         cwd: 'app/bower_components/ionic/release/fonts/',
-        dest: '<%= project.app %>/fonts/',
+        dest: '<%= project.dist %>/fonts/',
         src: '*'
       },
       vendor: {
