@@ -23,7 +23,7 @@ module.exports = function(config) {
         return path.relative(__dirname, file);
     })).concat([
         'app/scripts/**/*.js',
-        'test/unit/**/*.js'
+        'app/templates/**/*.js',
     ]),
 
 
