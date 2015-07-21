@@ -4,3 +4,8 @@
 node_modules/
 platforms/
 plugins/
+
+/info.txt
+/resources/*/
+/www/css/ionic.*.css
+/www/lib/
