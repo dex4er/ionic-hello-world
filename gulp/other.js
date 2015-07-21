@@ -19,16 +19,11 @@ gulp.task('sass', function(done) {
       errLogToConsole: true
     }))
     .pipe(gulp.dest('./app/components'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./app/components/'))
     .on('end', done);
 });
 
-gulp.task('copy', ['sass'], function(done){
-  gulp.src('app/**')
+gulp.task('copy', ['sass', 'inject'], function(done){
+  gulp.src(['app/**', '!**/*.src.html', '!**/*.scss'])
     .pipe(gulp.dest('www'))
     .on('end', done);
 });

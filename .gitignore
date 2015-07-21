@@ -8,8 +8,11 @@ www/
 
 /info.txt
 /resources/*/
+
 /app/*/*.css
 /app/vendor/
+
+/app/index.html
 
 # Eclipse
 .project

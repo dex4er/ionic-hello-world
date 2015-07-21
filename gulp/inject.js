@@ -7,9 +7,9 @@ var conf = require('./conf');
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var bowerFiles = require('main-bower-files');
-var _ = require('lodash');
+var ext_replace = require('gulp-ext-replace');
 
-gulp.task('inject', 'Inject styles and scripts into html', ['copy'], function () {
+gulp.task('inject', 'Inject styles and scripts into html', [], function () {
   var injectStyles = gulp.src([
     path.join(conf.path.src, '/css/*.css'),
   ], { read: false });
@@ -20,9 +20,10 @@ gulp.task('inject', 'Inject styles and scripts into html', ['copy'], function ()
     path.join('!' + conf.path.src, '/**/*.mock.js')
   ]).pipe(angularFilesort());
 
-  return gulp.src(path.join(conf.path.src, '/*.html'))
+  return gulp.src(path.join(conf.path.src, '/*.src.html'))
     .pipe(inject(injectStyles, {relative: true}))
     .pipe(inject(injectScripts, {relative: true}))
     .pipe(inject(gulp.src(bowerFiles({includeDev:true}), {read: false}), {relative: true, name: 'bower'}))
-    .pipe(gulp.dest(conf.path.dist));
+    .pipe(ext_replace('.html', '.src.html'))
+    .pipe(gulp.dest(conf.path.src));
 });
