@@ -7,7 +7,7 @@ angular.module('app').run(function($ionicPlatform, cordova, StatusBar) {
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
-    if (StatusBar) {
+    if (StatusBar && StatusBar.styleLightContent) {
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }

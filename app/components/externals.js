@@ -1,2 +1,3 @@
-angular.module('app').constant('cordova', cordova);
-angular.module('app').constant('StatusBar', StatusBar);
+angular.module('app')
+  .constant('cordova', typeof cordova !== 'undefined' ? cordova : {})
+  .constant('StatusBar', typeof StatusBar !== 'undefined' ? StatusBar : {});

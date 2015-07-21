@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
@@ -19,12 +21,6 @@ gulp.task('sass', function(done) {
       errLogToConsole: true
     }))
     .pipe(gulp.dest('./app/components'))
-    .on('end', done);
-});
-
-gulp.task('copy', ['sass', 'inject'], function(done){
-  gulp.src(['app/**', '!**/*.src.html', '!**/*.scss'])
-    .pipe(gulp.dest('www'))
     .on('end', done);
 });
 
