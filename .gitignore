@@ -7,5 +7,10 @@ plugins/
 
 /info.txt
 /resources/*/
-/www/css/ionic.*.css
-/www/lib/
+/app/css/ionic.*.css
+/app/vendor/
+
+# Eclipse
+.project
+.settings
+.tern-project

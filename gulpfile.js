@@ -18,17 +18,23 @@ gulp.task('sass', function(done) {
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./app/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
+    .pipe(gulp.dest('./app/css/'))
     .on('end', done);
+});
+
+gulp.task('copy', function(){
+  gulp.src('app/**')
+    .pipe(gulp.dest('www'));
 });
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch('app/**', ['copy']);
 });
 
 gulp.task('install', ['git-check'], function() {
