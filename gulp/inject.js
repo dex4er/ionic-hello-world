@@ -5,30 +5,24 @@ var gulp = require('gulp');
 var conf = require('./conf');
 
 var inject = require('gulp-inject');
-var wiredep = require('wiredep').stream;
+var angularFilesort = require('gulp-angular-filesort');
+var bowerFiles = require('main-bower-files');
 var _ = require('lodash');
 
-gulp.task('inject', ['scripts', 'styles'], function () {
+gulp.task('inject', 'Inject styles and scripts into html', ['copy'], function () {
   var injectStyles = gulp.src([
-    path.join(conf.path.tmp, '/serve/app/**/*.css'),
-    path.join('!' + conf.path.tmp, '/serve/app/vendor.css')
+    path.join(conf.path.src, '/css/*.css'),
   ], { read: false });
 
   var injectScripts = gulp.src([
-    path.join(conf.path.tmp, '/serve/app/**/*.module.js'),
-    path.join(conf.path.tmp, '/serve/app/**/*.js'),
-    path.join('!' + conf.path.src, '/app/**/*.spec.js'),
-    path.join('!' + conf.path.src, '/app/**/*.mock.js')
-  ], { read: false });
-
-  var injectOptions = {
-    ignorePath: [conf.path.src, path.join(conf.path.tmp, '/serve')],
-    addRootSlash: false
-  };
+    path.join(conf.path.src, 'components/**/*.js'),
+    path.join('!' + conf.path.src, '/**/*.spec.js'),
+    path.join('!' + conf.path.src, '/**/*.mock.js')
+  ]).pipe(angularFilesort());
 
   return gulp.src(path.join(conf.path.src, '/*.html'))
-    .pipe(inject(injectStyles, injectOptions))
-    .pipe(inject(injectScripts, injectOptions))
-    .pipe(wiredep(_.extend({}, conf.wiredep)))
-    .pipe(gulp.dest(path.join(conf.path.tmp, '/serve')));
+    .pipe(inject(injectStyles, {relative: true}))
+    .pipe(inject(injectScripts, {relative: true}))
+    .pipe(inject(gulp.src(bowerFiles({includeDev:true}), {read: false}), {relative: true, name: 'bower'}))
+    .pipe(gulp.dest(conf.path.dist));
 });

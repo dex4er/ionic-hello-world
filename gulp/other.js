@@ -8,28 +8,29 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./app/**/*.scss']
 };
 
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+  gulp.src('./app/components/ionic.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest('./app/css/'))
+    .pipe(gulp.dest('./app/components'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./app/css/'))
+    .pipe(gulp.dest('./app/components/'))
     .on('end', done);
 });
 
-gulp.task('copy', function(){
+gulp.task('copy', ['sass'], function(done){
   gulp.src('app/**')
-    .pipe(gulp.dest('www'));
+    .pipe(gulp.dest('www'))
+    .on('end', done);
 });
 
 gulp.task('watch', function() {

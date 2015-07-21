@@ -8,7 +8,7 @@ www/
 
 /info.txt
 /resources/*/
-/app/css/ionic.*.css
+/app/*/*.css
 /app/vendor/
 
 # Eclipse
