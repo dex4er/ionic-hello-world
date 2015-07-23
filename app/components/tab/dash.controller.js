@@ -1,1 +1,1 @@
-angular.module('app').controller('DashCtrl', function($scope) {});
+angular.module('app').controller('DashCtrl', function($scope) {/*jshint unused:false*/});
