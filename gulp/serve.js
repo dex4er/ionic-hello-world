@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
 
@@ -25,7 +26,9 @@ function browserSyncInit(baseDir) {
   browserSync.instance = browserSync.init({
     startPath: '/',
     server: server,
-    browser: conf.browser
+    browser: conf.browser,
+    logConnections: true,
+    timestamps: true
   });
 }
 
@@ -33,12 +36,21 @@ browserSync.use(browserSyncSpa({
   selector: '[ng-app]'// Only needed for angular apps
 }));
 
+var paths = {
+  src: [
+    path.join(conf.paths.tmp, 'inject'),
+    path.join(conf.paths.tmp, 'sass'),
+    conf.paths.src
+  ],
+  dev: conf.paths.dest
+};
+
 gulp.task('serve:src', 'Run dev app in browser from source folder', ['sass', 'inject'], function () {
-  browserSyncInit([conf.paths.tmp, conf.paths.src]);
+  browserSyncInit(paths.src);
 });
 
 gulp.task('serve:dev', 'Run dev app in browser from dest folder', ['copy'], function () {
-  browserSyncInit(conf.paths.dest);
+  browserSyncInit(paths.dev);
 });
 
-gulp.task('serve', 'serve:src');
+gulp.task('serve', ['serve:src']);
