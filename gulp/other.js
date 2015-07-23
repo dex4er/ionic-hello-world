@@ -1,6 +1,9 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
+var conf = require('./conf');
+
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
@@ -8,26 +11,6 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
-
-var paths = {
-  sass: ['./app/**/*.scss']
-};
-
-gulp.task('default', ['sass']);
-
-gulp.task('sass', function(done) {
-  gulp.src('./app/components/ionic.scss')
-    .pipe(sass({
-      errLogToConsole: true
-    }))
-    .pipe(gulp.dest('./app/components'))
-    .on('end', done);
-});
-
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch('app/**', ['copy']);
-});
 
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
