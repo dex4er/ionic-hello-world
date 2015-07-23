@@ -9,6 +9,6 @@ angular.module('app').config(function($stateProvider) {
         controller: 'DashCtrl'
       }
     }
-  })
+  });
 
 });

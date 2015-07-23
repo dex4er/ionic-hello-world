@@ -11,7 +11,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     url: '/tab',
     abstract: true,
     templateUrl: 'components/tab/index.html'
-  })
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
