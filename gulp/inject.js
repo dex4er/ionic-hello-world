@@ -30,7 +30,7 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
 
   var ignorePath = [
     conf.paths.src + '/',
-    conf.paths.tmp + '/'
+    path.join(conf.paths.tmp, 'sass') + '/'
   ];
 
   gulp.src(paths.html)
