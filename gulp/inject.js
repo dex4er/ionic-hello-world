@@ -27,10 +27,15 @@ gulp.task('inject', 'Inject styles and scripts into HTML', ['sass'], function (d
     ]
   };
 
+  var dirs = [
+    conf.paths.src + '/',
+    conf.paths.tmp + '/'
+  ];
+
   gulp.src(paths.html)
-    .pipe(inject(gulp.src(paths.css, {read: false}), {}))
-    .pipe(inject(gulp.src(paths.js).pipe(angularFilesort()), {}))
-    .pipe(inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {name: 'bower'}))
+    .pipe(inject(gulp.src(paths.css, {read: false}), {ignorePath: dirs, addRootSlash: false}))
+    .pipe(inject(gulp.src(paths.js).pipe(angularFilesort()), {ignorePath: dirs, addRootSlash: false}))
+    .pipe(inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: dirs, addRootSlash: false, name: 'bower'}))
     .pipe(extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(conf.paths.tmp))
     .on('end', done);
