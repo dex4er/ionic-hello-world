@@ -9,10 +9,11 @@ var angularFilesort = require('gulp-angular-filesort');
 var bowerFiles = require('main-bower-files');
 var extReplace = require('gulp-ext-replace');
 
-gulp.task('inject', 'Inject styles and scripts into HTML', [], function (done) {
+gulp.task('inject', 'Inject styles and scripts into HTML', ['sass'], function (done) {
   var paths = {
     css: [
       path.join(conf.paths.src, '**/*.css'),
+      path.join(conf.paths.tmp, '**/*.css'),
       '!' + path.join(conf.paths.bower, '**/*')
     ],
     js: [
@@ -27,9 +28,9 @@ gulp.task('inject', 'Inject styles and scripts into HTML', [], function (done) {
   };
 
   gulp.src(paths.html)
-    .pipe(inject(gulp.src(paths.css, {read: false}), {relative: true}))
-    .pipe(inject(gulp.src(paths.js).pipe(angularFilesort()), {relative: true}))
-    .pipe(inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {relative: true, name: 'bower'}))
+    .pipe(inject(gulp.src(paths.css, {read: false}), {}))
+    .pipe(inject(gulp.src(paths.js).pipe(angularFilesort()), {}))
+    .pipe(inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {name: 'bower'}))
     .pipe(extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(conf.paths.tmp))
     .on('end', done);
