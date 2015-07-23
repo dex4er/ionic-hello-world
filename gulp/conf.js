@@ -1,11 +1,16 @@
 'use strict';
 
-exports.paths = {
-  src: 'app',
-  dest: 'www',
-  tmp: 'tmp',
-  e2e: 'e2e',
-  bower: 'app/vendor',
-  scripts: 'app/components',
-  styles: 'app/styles'
+module.exports = {
+  paths: {
+
+    src: 'app',
+    dest: 'www',
+    tmp: 'tmp',
+    e2e: 'e2e',
+    bower: 'app/vendor',
+    scripts: 'app/components',
+    styles: 'app/styles'
+  },
+
+  browser: 'default'
 };
