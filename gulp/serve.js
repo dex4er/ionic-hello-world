@@ -47,6 +47,10 @@ var paths = {
 
 gulp.task('serve:src', 'Run dev app in browser from source folder', ['sass', 'inject'], function () {
   browserSyncInit(paths.src);
+  gulp.start(['watch:sass', 'watch:inject']);
+  paths.src.forEach(function(p) {
+    gulp.watch(p + '/**/*').on('change', browserSync.reload);
+  });
 });
 
 gulp.task('serve:dev', 'Run dev app in browser from dest folder', ['copy'], function () {
