@@ -1,10 +1,11 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
 var conf = require('./conf');
 
-var changed = require('gulp-changed');
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+
+var path = require('path');
 
 gulp.task('copy:dev', 'Copy dev files into dest folder', ['sass', 'inject'], function (done) {
   var paths = {
@@ -19,7 +20,7 @@ gulp.task('copy:dev', 'Copy dev files into dest folder', ['sass', 'inject'], fun
   };
 
   gulp.src(paths.src)
-    .pipe(changed(paths.dest))
+    .pipe($.changed(paths.dest))
     .pipe(gulp.dest(paths.dest))
     .on('end', done);
 });

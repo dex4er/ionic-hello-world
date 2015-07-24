@@ -1,13 +1,12 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
 var conf = require('./conf');
 
-var inject = require('gulp-inject');
-var angularFilesort = require('gulp-angular-filesort');
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+
+var path = require('path');
 var bowerFiles = require('main-bower-files');
-var extReplace = require('gulp-ext-replace');
 
 gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
   var paths = {
@@ -34,10 +33,10 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
   ];
 
   gulp.src(paths.html)
-    .pipe(inject(gulp.src(paths.css, {read: false}), {ignorePath: ignorePath, addRootSlash: false}))
-    .pipe(inject(gulp.src(paths.js).pipe(angularFilesort()), {ignorePath: ignorePath, addRootSlash: false}))
-    .pipe(inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: ignorePath, addRootSlash: false, name: 'bower'}))
-    .pipe(extReplace('.html', '.inj.html'))
+    .pipe($.inject(gulp.src(paths.css, {read: false}), {ignorePath: ignorePath, addRootSlash: false}))
+    .pipe($.inject(gulp.src(paths.js).pipe($.angularFilesort()), {ignorePath: ignorePath, addRootSlash: false}))
+    .pipe($.inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: ignorePath, addRootSlash: false, name: 'bower'}))
+    .pipe($.extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(paths.dest))
     .on('end', done);
 });

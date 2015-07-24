@@ -1,10 +1,11 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
 var conf = require('./conf');
 
-var sass = require('gulp-sass');
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+
+var path = require('path');
 
 gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
   var paths = {
@@ -16,7 +17,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
   };
 
   gulp.src(paths.scss)
-    .pipe(sass({
+    .pipe($.sass({
       errLogToConsole: true
     }))
     .pipe(gulp.dest(paths.dest))
