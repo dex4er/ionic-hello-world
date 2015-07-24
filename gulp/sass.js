@@ -7,19 +7,28 @@ var $ = require('gulp-load-plugins')();
 
 var path = require('path');
 
-gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
-  var paths = {
-    scss: [
-      path.join(conf.paths.src, '**', '*.scss'),
-      '!' + path.join(conf.paths.bower, '**', '*')
-    ],
-    dest: path.join(conf.paths.tmp, 'sass')
-  };
+var paths = {
+  src: [
+    path.join(conf.paths.src, '**', '*.scss'),
+    '!' + path.join(conf.paths.bower, '**', '*')
+  ],
+  dest: path.join(conf.paths.tmp, 'sass')
+};
 
-  gulp.src(paths.scss)
+gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
+  gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest(paths.dest))
-    .on('end', done);
+    .pipe(gulp.dest(paths.dest));
+});
+
+gulp.task('watch:sass', 'Watch for changes in Sass', function(done) {
+  $.watch(paths.src, $.batch(function(events, done) {
+    events
+      .on('data', function() {
+        gulp.start('sass', done);
+      })
+      .on('end', done);
+  }));
 });

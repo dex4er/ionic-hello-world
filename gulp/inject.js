@@ -4,29 +4,30 @@ var conf = require('./conf');
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var _ = require('lodash');
 
 var path = require('path');
 var bowerFiles = require('main-bower-files');
 
-gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
-  var paths = {
-    css: [
-      path.join(conf.paths.src, '**', '*.css'),
-      path.join(conf.paths.tmp, 'sass', '**', '*.css'),
-      '!' + path.join(conf.paths.bower, '**', '*')
-    ],
-    js: [
-      path.join(conf.paths.src, '**', '*.js'),
-      '!' + path.join(conf.paths.bower, '**', '*'),
-      '!' + path.join('**', '*.spec.js'),
-      '!' + path.join('**', '*.mock.js')
-    ],
-    html: [
-      path.join(conf.paths.src, '*.inj.html')
-    ],
-    dest: path.join(conf.paths.tmp, 'inject')
-  };
+var paths = {
+  css: [
+    path.join(conf.paths.src, '**', '*.css'),
+    path.join(conf.paths.tmp, 'sass', '**', '*.css'),
+    '!' + path.join(conf.paths.bower, '**', '*')
+  ],
+  js: [
+    path.join(conf.paths.src, '**', '*.js'),
+    '!' + path.join(conf.paths.bower, '**', '*'),
+    '!' + path.join('**', '*.spec.js'),
+    '!' + path.join('**', '*.mock.js')
+  ],
+  html: [
+    path.join(conf.paths.src, '*.inj.html')
+  ],
+  dest: path.join(conf.paths.tmp, 'inject')
+};
 
+gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
   var ignorePath = [
     conf.paths.src + '/',
     path.join(conf.paths.tmp, 'sass') + '/'
@@ -39,4 +40,14 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
     .pipe($.extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(paths.dest))
     .on('end', done);
+});
+
+gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) {
+  $.watch(_.flatten([paths.css, paths.html, paths.js]), $.batch(function(events, done) {
+    events
+      .on('data', function() {
+        gulp.start('inject', done);
+      })
+      .on('end', done);
+  }));
 });
