@@ -1,10 +1,10 @@
 angular.module('app').config(function($stateProvider) {
 
   $stateProvider
-    .state('tab.chats-detail', {
-      url: '/chats/:chatId',
+    .state('tab.chats.detail', {
+      url: '/:chatId',
       views: {
-        'tab-chats': {
+        'tab-chats@tab': {
           templateUrl: 'components/tab/chats/detail.html',
           controller: 'ChatsDetailController'
         }
