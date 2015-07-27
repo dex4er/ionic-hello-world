@@ -23,7 +23,7 @@ function spawnChild() {
   if (child) {
     child.kill();
   }
-  child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject'], {stdio: 'inherit'});
+  child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject', 'watch:browser'], {stdio: 'inherit'});
 }
 
 gulp.task('watch', 'Watch for all changes', function(done) { // jshint ignore:line

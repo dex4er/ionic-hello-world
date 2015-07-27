@@ -41,7 +41,7 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
     .pipe($.extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(paths.dest))
     .on('end', function() {
-      gulp.start('serve:reload');
+      gulp.start('browser:reload');
       done();
     });
 });

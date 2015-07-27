@@ -22,7 +22,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
     }))
     .pipe(gulp.dest(paths.dest))
     .on('end', function() {
-      gulp.start('serve:reload');
+      gulp.start('browser:reload');
       done();
     });
 });

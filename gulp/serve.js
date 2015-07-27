@@ -3,6 +3,7 @@
 var conf = require('./conf');
 
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 
 var path = require('path');
 var browserSync = require('browser-sync');
@@ -46,10 +47,20 @@ var paths = {
   dev: conf.paths.dest
 };
 
-gulp.task('serve:reload', 'Reload browser', function () {
+gulp.task('browser:reload', 'Reload browser', function () {
   if (browserSync.instances) {
     browserSync.reload();
   }
+});
+
+gulp.task('watch:browser', 'Watch for changes and reload browser', function(done) { // jshint ignore:line
+  $.watch(paths.src, $.batch(function(events, done) {
+    events
+      .on('data', function() {
+        gulp.start('browser:reload', done);
+      })
+      .on('end', done);
+  }));
 });
 
 gulp.task('serve:src', 'Run dev app in browser from source folder', function () {
