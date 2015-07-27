@@ -3,10 +3,8 @@
 var conf = require('./conf');
 
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
 
 var path = require('path');
-var mkdirp = require('mkdirp');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 

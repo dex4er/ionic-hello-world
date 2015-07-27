@@ -27,7 +27,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
     });
 });
 
-gulp.task('watch:sass', 'Watch for changes in Sass', function(done) {
+gulp.task('watch:sass', 'Watch for changes in Sass', function(done) { // jshint ignore:line
   $.watch(paths.src, $.batch(function(events, done) {
     events
       .on('data', function() {

@@ -46,7 +46,7 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
     });
 });
 
-gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) {
+gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) { // jshint ignore:line
   mkdirp(path.join(conf.paths.tmp, 'sass'));
   $.watch(_.flatten([paths.css, paths.html, paths.js]), $.batch(function(events, done) {
     events

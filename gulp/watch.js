@@ -13,20 +13,20 @@ var paths = [
   path.join('gulp', '*.js')
 ];
 
-gulp.task('watch:gulp', 'Watch for changes in gulp scripts', function(done) {
+gulp.task('watch:gulp', 'Watch for changes in gulp scripts', function(done) { // jshint ignore:line
   $.watch(paths, function() {
     process.exit();
   });
 });
 
-gulp.task('watch', 'Watch for all changes', function(done) {
+function spawnChild() {
+  if (child) {
+    child.kill();
+  }
+  child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject'], {stdio: 'inherit'});
+}
+
+gulp.task('watch', 'Watch for all changes', function(done) { // jshint ignore:line
   $.watch(paths, spawnChild);
   spawnChild();
-
-  function spawnChild() {
-    if (child) {
-      child.kill();
-    }
-    child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject'], {stdio: 'inherit'});
-  }
 });
