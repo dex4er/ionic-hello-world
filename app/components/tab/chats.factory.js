@@ -1,4 +1,4 @@
-angular.module('app').factory('Chats', function() {
+angular.module('app').factory('Chats', function ChatsFactory() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
