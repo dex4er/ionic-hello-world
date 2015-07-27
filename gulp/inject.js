@@ -7,6 +7,7 @@ var $ = require('gulp-load-plugins')();
 var _ = require('lodash');
 
 var path = require('path');
+var mkdirp = require('mkdirp');
 var bowerFiles = require('main-bower-files');
 
 var paths = {
@@ -39,10 +40,14 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function (done) {
     .pipe($.inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: ignorePath, addRootSlash: false, name: 'bower'}))
     .pipe($.extReplace('.html', '.inj.html'))
     .pipe(gulp.dest(paths.dest))
-    .on('end', done);
+    .on('end', function() {
+      gulp.start('serve:reload');
+      done();
+    });
 });
 
 gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) {
+  mkdirp(path.join(conf.paths.tmp, 'sass'));
   $.watch(_.flatten([paths.css, paths.html, paths.js]), $.batch(function(events, done) {
     events
       .on('data', function() {

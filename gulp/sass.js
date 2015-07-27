@@ -15,12 +15,16 @@ var paths = {
   dest: path.join(conf.paths.tmp, 'sass')
 };
 
-gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
+gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
   gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(paths.dest))
+    .on('end', function() {
+      gulp.start('serve:reload');
+      done();
+    });
 });
 
 gulp.task('watch:sass', 'Watch for changes in Sass', function(done) {

@@ -1,9 +1,12 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
 var conf = require('./conf');
 
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+
+var path = require('path');
+var mkdirp = require('mkdirp');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 
@@ -45,11 +48,18 @@ var paths = {
   dev: conf.paths.dest
 };
 
-gulp.task('serve:src', 'Run dev app in browser from source folder', ['sass', 'inject'], function () {
-  browserSyncInit(paths.src);
-  gulp.start(['watch:sass', 'watch:inject']);
-  paths.src.forEach(function(p) {
-    gulp.watch(p + '/**/*').on('change', browserSync.reload);
+gulp.task('serve:reload', 'Reload browser', function () {
+  if (browserSync.instances) {
+    browserSync.reload();
+  }
+});
+
+gulp.task('serve:src', 'Run dev app in browser from source folder', function () {
+  gulp.start('sass', function() {
+    gulp.start('inject', function() {
+      browserSyncInit(paths.src);
+      gulp.start('watch');
+    });
   });
 });
 

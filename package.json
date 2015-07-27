@@ -1,5 +1,5 @@
 {
-  "name": "ionic-project",
+  "name": "ionic-hello-world",
   "version": "1.0.0",
   "description": "An Ionic project",
   "dependencies": {},
@@ -28,6 +28,7 @@
     "jshint-stylish": "^2.0.1",
     "lodash": "^3.10.0",
     "main-bower-files": "^2.9.0",
+    "mkdirp": "^0.5.1",
     "require-dir": "^0.3.0",
     "shelljs": "^0.3.0"
   },
