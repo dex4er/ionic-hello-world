@@ -8,9 +8,9 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
     // setup an abstract state for the tabs directive
     .state('tab', {
-      url : '/tab',
-      abstract : true,
-      templateUrl : 'components/tab/index.html'
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'components/tab.html'
     });
 
   // if none of the above states are matched, use this as the fallback

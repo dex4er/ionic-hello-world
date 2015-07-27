@@ -6,7 +6,7 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'tab-dash': {
           templateUrl: 'components/tab/dash.html',
-          controller: 'DashCtrl'
+          controller: 'DashController'
         }
       }
     });
