@@ -1,4 +1,4 @@
-angular.module('app').controller('AccountCtrl', function($scope) {
+angular.module('app').controller('AccountController', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
