@@ -29,7 +29,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
-gulp.task('watch:sass', 'Watch for changes in Sass', function() {
+gulp.task('watch:sass', 'Watch for changes in Sass', function(done) { // jshint ignore:line
   $.watch(paths.src, function() {
     gulp.start('sass');
   });

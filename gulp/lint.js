@@ -24,7 +24,7 @@ gulp.task('lint', 'Detect errors in JavaScript code', function() {
     .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('watch:lint', 'Watch for changes in JS files and run lint', function() {
+gulp.task('watch:lint', 'Watch for changes in JS files and run lint', function(done) { // jshint ignore:line
   var cwd = process.cwd();
   $.watch(paths.src, function(file) {
 

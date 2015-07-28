@@ -46,7 +46,7 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function() {
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
-gulp.task('watch:inject', 'Watch for changes in injected HTML', function() {
+gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) { // jshint ignore:line
   mkdirp(conf.paths.tmp + '/sass/', {}, function() {
     $.watch(_(paths.src).values().flatten().value(), function() {
       gulp.start('inject');
