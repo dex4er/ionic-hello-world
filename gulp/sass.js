@@ -17,7 +17,7 @@ var paths = {
 };
 
 gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
-  gulp.src(paths.src)
+  return gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true,
       sourceComments: global.isProd ? 'none' : 'map',
@@ -26,7 +26,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
     }))
     .pipe(gulp.dest(paths.dest))
     .on('error', error)
-    .pipe($.if(browserSync.active, browserSync.reload({ stream: true })))
+    .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
 gulp.task('watch:sass', 'Watch for changes in Sass', function() {

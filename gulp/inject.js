@@ -10,7 +10,6 @@ var _ = require('lodash');
 var bowerFiles = require('main-bower-files');
 var browserSync = require('browser-sync');
 var mkdirp = require('mkdirp');
-var path = require('path');
 
 var paths = {
   src: {
@@ -36,8 +35,8 @@ var paths = {
   dest: conf.paths.tmp + '/inject'
 };
 
-gulp.task('inject', 'Inject styles and scripts into HTML', function () {
-  gulp.src(paths.src.html)
+gulp.task('inject', 'Inject styles and scripts into HTML', function() {
+  return gulp.src(paths.src.html)
     .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
     .pipe($.inject(gulp.src(paths.src.js).pipe($.angularFilesort()), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
     .pipe($.inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd, name: 'bower'}))

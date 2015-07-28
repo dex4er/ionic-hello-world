@@ -8,6 +8,8 @@ var $ = require('gulp-load-plugins')();
 var path = require('path');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
+var mkdirp = require('mkdirp');
+var runSequence = require('run-sequence');
 
 // var proxyMiddleware = require('http-proxy-middleware');
 
@@ -47,17 +49,17 @@ var paths = {
   dev: conf.paths.dest
 };
 
-gulp.task('serve:src', 'Run dev app in browser from source folder', function () {
-  gulp.start('sass', function() {
-    gulp.start('inject', function() {
-      browserSyncInit(paths.src);
+gulp.task('serve:src', 'Run dev app in browser from source folder', function(done) { // jshint ignore:line
+  runSequence('sass', 'inject', function() {
+    browserSyncInit(paths.src);
+    mkdirp(conf.paths.tmp + '/inject/', {}, function() {
       $.watch(paths.src, browserSync.reload);
       gulp.start('watch');
     });
   });
 });
 
-gulp.task('serve:dev', 'Run dev app in browser from dest folder', ['copy'], function () {
+gulp.task('serve:dev', 'Run dev app in browser from dest folder', ['copy'], function() {
   browserSyncInit(paths.dev);
 });
 

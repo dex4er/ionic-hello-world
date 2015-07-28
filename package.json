@@ -1,6 +1,7 @@
 {
   "name": "ionic-hello-world",
   "version": "1.0.0",
+  "private": true,
   "description": "An Ionic project",
   "dependencies": {},
   "devDependencies": {
@@ -45,6 +46,7 @@
     "mocha": "^2.2.5",
     "phantomjs": "^1.9.17",
     "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.2",
     "shelljs": "^0.3.0",
     "sinon": "^1.15.4"
   },
