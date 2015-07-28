@@ -1,38 +1,36 @@
 'use strict';
 
 var conf = require('./conf');
+var error = require('./error');
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var path = require('path');
+var browserSync = require('browser-sync');
 
 var paths = {
   src: [
-    path.join(conf.paths.src, '**', '*.scss'),
-    '!' + path.join(conf.paths.bower, '**', '*')
+    conf.paths.src + '/**/*.scss',
+    '!' + conf.paths.bower + '/**/*'
   ],
-  dest: path.join(conf.paths.tmp, 'sass')
+  dest: conf.paths.tmp + '/sass'
 };
 
-gulp.task('sass', 'Build CSS from Sass stylesheets', function(done) {
+gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
   gulp.src(paths.src)
     .pipe($.sass({
-      errLogToConsole: true
+      errLogToConsole: true,
+      sourceComments: global.isProd ? 'none' : 'map',
+      sourceMap: 'sass',
+      outputStyle: global.isProd ? 'compressed' : 'nested'
     }))
     .pipe(gulp.dest(paths.dest))
-    .on('end', function() {
-      gulp.start('browser:reload');
-      done();
-    });
+    .on('error', error)
+    .pipe($.if(browserSync.active, browserSync.reload({ stream: true })))
 });
 
-gulp.task('watch:sass', 'Watch for changes in Sass', function(done) { // jshint ignore:line
-  $.watch(paths.src, $.batch(function(events, done) {
-    events
-      .on('data', function() {
-        gulp.start('sass', done);
-      })
-      .on('end', done);
-  }));
+gulp.task('watch:sass', 'Watch for changes in Sass', function() {
+  $.watch(paths.src, function() {
+    gulp.start('sass');
+  });
 });

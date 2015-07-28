@@ -1,7 +1,8 @@
 'use strict';
 
-var gulp = require('gulp');
 var conf = require('./conf');
+
+var gulp = require('gulp');
 
 var del = require('del');
 

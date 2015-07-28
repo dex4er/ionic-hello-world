@@ -47,26 +47,11 @@ var paths = {
   dev: conf.paths.dest
 };
 
-gulp.task('browser:reload', 'Reload browser', function () {
-  if (browserSync.instances) {
-    browserSync.reload();
-  }
-});
-
-gulp.task('watch:browser', 'Watch for changes and reload browser', function(done) { // jshint ignore:line
-  $.watch(paths.src, $.batch(function(events, done) {
-    events
-      .on('data', function() {
-        gulp.start('browser:reload', done);
-      })
-      .on('end', done);
-  }));
-});
-
 gulp.task('serve:src', 'Run dev app in browser from source folder', function () {
   gulp.start('sass', function() {
     gulp.start('inject', function() {
       browserSyncInit(paths.src);
+      $.watch(paths.src, browserSync.reload);
       gulp.start('watch');
     });
   });

@@ -13,7 +13,7 @@ var paths = [
   path.join('gulp', '*.js')
 ];
 
-gulp.task('watch:gulp', 'Watch for changes in gulp scripts', function(done) { // jshint ignore:line
+gulp.task('watch:gulp', 'Watch for changes in gulp scripts', function() {
   $.watch(paths, function() {
     process.exit();
   });
@@ -23,7 +23,7 @@ function spawnChild() {
   if (child) {
     child.kill();
   }
-  child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject', 'watch:browser'], {stdio: 'inherit'});
+  child = spawn('gulp', ['watch:gulp', 'watch:sass', 'watch:inject'], {stdio: 'inherit'});
 }
 
 gulp.task('watch', 'Watch for all changes', function(done) { // jshint ignore:line
