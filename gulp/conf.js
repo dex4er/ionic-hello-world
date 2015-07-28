@@ -9,7 +9,8 @@ module.exports = {
     e2e: 'e2e',
     bower: 'app/vendor',
     scripts: 'app/components',
-    styles: 'app/styles'
+    styles: 'app/styles',
+    gulp: 'gulp'
   },
 
   browser: 'default'
