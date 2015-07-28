@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app').factory('Chats', function ChatsFactory() {
   // Might use a resource here that returns a JSON array
 
