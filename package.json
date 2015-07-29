@@ -10,6 +10,7 @@
     "browser-sync-spa": "^1.0.2",
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
+    "connect-logger": "0.0.1",
     "del": "^1.2.0",
     "event-stream": "^3.3.1",
     "glob-array": "^0.1.2",

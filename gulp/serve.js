@@ -8,6 +8,7 @@ var $ = require('gulp-load-plugins')();
 var path = require('path');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
+var connectLogger = require("connect-logger");
 var mkdirp = require('mkdirp');
 var runSequence = require('run-sequence');
 
@@ -18,20 +19,15 @@ function browserSyncInit(baseDir) {
     baseDir: baseDir
   };
 
-  /*
-   * You can add a proxy to your backend by uncommenting the line bellow.
-   * You just have to configure a context which will we redirected and the target url.
-   * Example: $http.get('/users') requests will be automatically proxified.
-   *
-   * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
-   */
-  // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
-
   browserSync.instance = browserSync.init({
     startPath: '/',
     server: server,
     browser: conf.browser,
     logConnections: true,
+    middleware: [
+      connectLogger()
+      // proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
+    ],
     timestamps: true
   });
 }
