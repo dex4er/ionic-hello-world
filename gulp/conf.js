@@ -2,7 +2,6 @@
 
 module.exports = {
   paths: {
-
     src: 'app',
     dest: 'www',
     tmp: 'tmp',
@@ -13,5 +12,9 @@ module.exports = {
     gulp: 'gulp'
   },
 
-  browser: 'default'
+  browser: 'default',
+
+  cordova: {
+    platforms: ['android']
+  }
 };

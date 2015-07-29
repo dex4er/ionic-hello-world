@@ -22,7 +22,7 @@ var paths = {
 };
 
 gulp.task('copy:dev', "Copy dev files into dest folder", function (done) {
-  runSequence('clean', 'sass', 'inject:prod', 'lint', function() {
+  runSequence('sass', 'inject:prod', 'lint', function() {
     merge2(
       gulp.src(paths.src),
       gulp.src(bowerFiles(), {base: process.cwd() + '/' + conf.paths.src}))
