@@ -20,10 +20,10 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: bowerFiles(path.join('**', '*.js'), {includeDev: true}).concat(
+    files: bowerFiles('**/*.js', {includeDev: true}).concat(
       glob.sync([
-        path.join(conf.paths.src, '**', '*.js'),
-        '!' + path.join(conf.paths.bower, '**', '*')
+        conf.paths.src + '/**/*.js',
+        '!' + conf.paths.bower + '/**/*'
       ])
     ),
 

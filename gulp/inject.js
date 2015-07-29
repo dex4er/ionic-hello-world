@@ -39,7 +39,7 @@ gulp.task('inject', "Inject styles and scripts into HTML", function() {
   return gulp.src(paths.src.html)
     .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
     .pipe($.inject(gulp.src(paths.src.js).pipe($.angularFilesort()), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
-    .pipe($.inject(gulp.src(bowerFiles({includeDev: true}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd, name: 'bower'}))
+    .pipe($.inject(gulp.src(bowerFiles({includeDev: !global.isProd}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd, name: 'bower'}))
     .pipe($.extReplace('.html', '.inj.html'))
     .on('error', error)
     .pipe(gulp.dest(paths.dest))
