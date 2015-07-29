@@ -55,7 +55,7 @@ gulp.task('serve:src', "Run dev app in browser from source folder", function(don
   });
 });
 
-gulp.task('serve:dev', "Run dev app in browser from dest folder", ['copy'], function() {
+gulp.task('serve:dev', "Run dev app in browser from dest folder", ['copy:dev'], function(done) { // jshint ignore:line
   browserSyncInit(paths.dev);
 });
 

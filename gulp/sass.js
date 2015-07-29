@@ -7,6 +7,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var browserSync = require('browser-sync');
+var runSequence = require('run-sequence');
 
 var paths = {
   src: [
@@ -16,8 +17,8 @@ var paths = {
   dest: conf.paths.tmp + '/sass'
 };
 
-gulp.task('sass', "Build CSS from Sass stylesheets", function() {
-  return gulp.src(paths.src)
+gulp.task('sass', "Build CSS from Sass stylesheets", function(done) {
+  gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true,
       sourceComments: global.isProd ? 'none' : 'map',
@@ -26,11 +27,12 @@ gulp.task('sass', "Build CSS from Sass stylesheets", function() {
     }))
     .pipe(gulp.dest(paths.dest))
     .on('error', error)
+    .on('end', done)
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
 gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint ignore:line
   $.watch(paths.src, function() {
-    gulp.start('sass');
+    runSequence('sass');
   });
 });

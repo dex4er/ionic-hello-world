@@ -3,8 +3,9 @@
 var conf = require('./conf');
 
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
 
+var bowerFiles = require('main-bower-files');
+var merge2 = require('merge2');
 var runSequence = require('run-sequence');
 
 var paths = {
@@ -12,6 +13,7 @@ var paths = {
     conf.paths.src + '/**/*',
     conf.paths.tmp +  '/sass/**/*',
     conf.paths.tmp + '/inject/**/*',
+    '!' + conf.paths.bower + '/**/*',
     '!' + conf.paths.src + '/**/*.inj.*',
     '!' + conf.paths.src + '/**/*.scss',
     '!' + conf.paths.src + '/**/*.spec.*'
@@ -20,9 +22,10 @@ var paths = {
 };
 
 gulp.task('copy:dev', "Copy dev files into dest folder", function (done) {
-  runSequence('sass', 'inject:prod', 'lint', function() {
-    gulp.src(paths.src)
-      .pipe($.changed(paths.dest))
+  runSequence('clean', 'sass', 'inject:prod', 'lint', function() {
+    merge2(
+      gulp.src(paths.src),
+      gulp.src(bowerFiles(), {base: process.cwd() + '/' + conf.paths.src}))
       .pipe(gulp.dest(paths.dest))
       .on('end', done);
   });
