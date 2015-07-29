@@ -35,15 +35,27 @@ var paths = {
   dest: conf.paths.tmp + '/inject'
 };
 
+var isProd = false;
+
 gulp.task('inject', "Inject styles and scripts into HTML", function() {
   return gulp.src(paths.src.html)
-    .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
-    .pipe($.inject(gulp.src(paths.src.js)/*.pipe($.angularFilesort())*/, {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
-    .pipe($.inject(gulp.src(bowerFiles({includeDev: !global.isProd}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd, name: 'bower'}))
+    .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !isProd}))
+    .pipe($.inject(gulp.src(paths.src.js)/*.pipe($.angularFilesort())*/, {ignorePath: paths.dirs, addRootSlash: !isProd}))
+    .pipe($.inject(gulp.src(bowerFiles({includeDev: !isProd}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !isProd, name: 'bower'}))
     .pipe($.extReplace('.html', '.inj.html'))
     .on('error', error)
     .pipe(gulp.dest(paths.dest))
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
+});
+
+gulp.task('inject:dev', "Inject styles and scripts into HTML (dev mode)", function(done) {
+  isProd = false;
+  gulp.start('inject', done);
+});
+
+gulp.task('inject:prod', "Inject styles and scripts into HTML (prod mode)", function(done) {
+  isProd = true;
+  gulp.start('inject', done);
 });
 
 gulp.task('watch:inject', "Watch for changes in injected HTML", function(done) { // jshint ignore:line
