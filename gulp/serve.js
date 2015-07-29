@@ -50,7 +50,7 @@ var paths = {
 };
 
 gulp.task('serve:src', 'Run dev app in browser from source folder', function(done) { // jshint ignore:line
-  runSequence('sass', 'inject', function() {
+  runSequence('sass', 'inject', 'lint', function() {
     browserSyncInit(paths.src);
     mkdirp(conf.paths.tmp + '/inject/', {}, function() {
       $.watch(paths.src, browserSync.reload);
