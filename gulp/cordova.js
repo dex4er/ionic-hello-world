@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')();
 
 var runSequence = require('run-sequence');
 
-['android'].forEach(function(platform) {
+conf.cordova.platforms.forEach(function(platform) {
   gulp.task('clean:cordova:' + platform, "Clean Cordova project folder for " + platform, function(done) {
     var cordova = require('../platforms/' + platform + '/cordova/lib/build');
     cordova.runClean()
@@ -23,7 +23,7 @@ var runSequence = require('run-sequence');
 
 gulp.task('clean:cordova', "Clean all Cordova project folders", function(done) {
   runSequence(conf.cordova.platforms.map(function(platform) {
-    return 'clean:cordova:'+platform;
+    return 'clean:cordova:' + platform;
   }), done);
 });
 
