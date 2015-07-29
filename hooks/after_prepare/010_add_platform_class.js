@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 // Add Platform Class
 // v1.0
 // Automatically adds the platform class to the body tag
@@ -13,6 +15,20 @@ var path = require('path');
 
 var rootdir = process.argv[2];
 
+function findBodyTag(html) {
+  // get the body tag
+  try{
+    return html.match(/<body(?=[\s>])(.*?)>/gi)[0];
+  }catch(e){}
+}
+
+function findClassAttr(bodyTag) {
+  // get the body tag's class attribute
+  try{
+    return bodyTag.match(/ class=["|'](.*?)["|']/gi)[0];
+  }catch(e){}
+}
+
 function addPlatformBodyTag(indexPath, platform) {
   // add the platform class to the body tag
   try {
@@ -22,9 +38,13 @@ function addPlatformBodyTag(indexPath, platform) {
     var html = fs.readFileSync(indexPath, 'utf8');
 
     var bodyTag = findBodyTag(html);
-    if(!bodyTag) return; // no opening body tag, something's wrong
+    if(!bodyTag) {
+      return; // no opening body tag, something's wrong
+    }
 
-    if(bodyTag.indexOf(platformClass) > -1) return; // already added
+    if(bodyTag.indexOf(platformClass) > -1) {
+      return; // already added
+    }
 
     var newBodyTag = bodyTag;
 
@@ -51,20 +71,6 @@ function addPlatformBodyTag(indexPath, platform) {
   }
 }
 
-function findBodyTag(html) {
-  // get the body tag
-  try{
-    return html.match(/<body(?=[\s>])(.*?)>/gi)[0];
-  }catch(e){}
-}
-
-function findClassAttr(bodyTag) {
-  // get the body tag's class attribute
-  try{
-    return bodyTag.match(/ class=["|'](.*?)["|']/gi)[0];
-  }catch(e){}
-}
-
 if (rootdir) {
 
   // go through each of the platform directories that have been prepared
@@ -76,7 +82,7 @@ if (rootdir) {
       var platform = platforms[x].trim().toLowerCase();
       var indexPath;
 
-      if(platform == 'android') {
+      if(platform === 'android') {
         indexPath = path.join('platforms', platform, 'assets', 'www', 'index.html');
       } else {
         indexPath = path.join('platforms', platform, 'www', 'index.html');
