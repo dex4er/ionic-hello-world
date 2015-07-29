@@ -20,3 +20,4 @@ www/
 /.settings/
 /.tern-project
 /pom.xml
+/target/
