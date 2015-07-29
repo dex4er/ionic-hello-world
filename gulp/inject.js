@@ -35,7 +35,7 @@ var paths = {
   dest: conf.paths.tmp + '/inject'
 };
 
-gulp.task('inject', 'Inject styles and scripts into HTML', function() {
+gulp.task('inject', "Inject styles and scripts into HTML", function() {
   return gulp.src(paths.src.html)
     .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
     .pipe($.inject(gulp.src(paths.src.js).pipe($.angularFilesort()), {ignorePath: paths.dirs, addRootSlash: !global.isProd}))
@@ -46,7 +46,7 @@ gulp.task('inject', 'Inject styles and scripts into HTML', function() {
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
-gulp.task('watch:inject', 'Watch for changes in injected HTML', function(done) { // jshint ignore:line
+gulp.task('watch:inject', "Watch for changes in injected HTML", function(done) { // jshint ignore:line
   mkdirp(conf.paths.tmp + '/sass/', {}, function() {
     $.watch(_(paths.src).values().flatten().value(), function() {
       gulp.start('inject');

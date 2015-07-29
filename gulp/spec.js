@@ -4,7 +4,7 @@ var gulp = require('gulp');
 
 var karma = require('karma').Server;
 
-gulp.task('spec', 'Run spec tests', function(done) {
+gulp.task('spec', "Run spec tests", function(done) {
   new karma({
     configFile: __dirname + '/../karma.conf.js',
     reporters: ['spec'],
@@ -12,7 +12,7 @@ gulp.task('spec', 'Run spec tests', function(done) {
   }, done).start();
 });
 
-gulp.task('watch:spec', 'Watch for changes in JS files and run spec tests', function(done) {
+gulp.task('watch:spec', "Watch for changes in JS files and run spec tests", function(done) {
   new karma({
     configFile: __dirname + '/../karma.conf.js',
     reporters: ['dots'],

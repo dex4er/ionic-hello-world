@@ -17,14 +17,14 @@ var paths = {
   ],
 };
 
-gulp.task('lint', 'Detect errors in JavaScript code', function() {
+gulp.task('lint', "Detect errors in JavaScript code", function() {
   return gulp.src(paths.src)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('watch:lint', 'Watch for changes in JS files and run lint', function(done) { // jshint ignore:line
+gulp.task('watch:lint', "Watch for changes in JS files and run lint", function(done) { // jshint ignore:line
   var cwd = process.cwd();
   $.watch(paths.src, function(file) {
 

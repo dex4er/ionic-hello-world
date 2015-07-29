@@ -6,11 +6,11 @@ var gulp = require('gulp');
 
 var del = require('del');
 
-gulp.task('clean:tmp', 'Clean temporary folder', function (done) {
+gulp.task('clean:tmp', "Clean temporary folder", function (done) {
   del(conf.paths.tmp, done);
 });
 
-gulp.task('clean:dest', 'Clean dest folder', function (done) {
+gulp.task('clean:dest', "Clean dest folder", function (done) {
   del(conf.paths.dest, done);
 });
 

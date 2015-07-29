@@ -16,7 +16,7 @@ var paths = {
   dest: conf.paths.tmp + '/sass'
 };
 
-gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
+gulp.task('sass', "Build CSS from Sass stylesheets", function() {
   return gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true,
@@ -29,7 +29,7 @@ gulp.task('sass', 'Build CSS from Sass stylesheets', function() {
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 });
 
-gulp.task('watch:sass', 'Watch for changes in Sass', function(done) { // jshint ignore:line
+gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint ignore:line
   $.watch(paths.src, function() {
     gulp.start('sass');
   });

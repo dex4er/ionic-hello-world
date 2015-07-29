@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')();
 
 var path = require('path');
 
-gulp.task('copy:dev', 'Copy dev files into dest folder', ['sass', 'inject'], function (done) {
+gulp.task('copy:dev', "Copy dev files into dest folder", ['sass', 'inject'], function (done) {
   var paths = {
     src: [
       path.join(conf.paths.src, '**', '*'),

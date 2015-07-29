@@ -49,7 +49,7 @@ var paths = {
   dev: conf.paths.dest
 };
 
-gulp.task('serve:src', 'Run dev app in browser from source folder', function(done) { // jshint ignore:line
+gulp.task('serve:src', "Run dev app in browser from source folder", function(done) { // jshint ignore:line
   runSequence('sass', 'inject', 'lint', function() {
     browserSyncInit(paths.src);
     mkdirp(conf.paths.tmp + '/inject/', {}, function() {
@@ -59,7 +59,7 @@ gulp.task('serve:src', 'Run dev app in browser from source folder', function(don
   });
 });
 
-gulp.task('serve:dev', 'Run dev app in browser from dest folder', ['copy'], function() {
+gulp.task('serve:dev', "Run dev app in browser from dest folder", ['copy'], function() {
   browserSyncInit(paths.dev);
 });
 
