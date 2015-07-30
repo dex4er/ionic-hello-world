@@ -17,12 +17,22 @@ var paths = {
   ],
 };
 
-gulp.task('lint', "Detect errors in JavaScript code", function() {
+function runTask(opts) {
   return gulp.src(paths.src)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
+    .pipe($.if(opts.isProd, $.jshint.reporter('fail')));
+}
+
+gulp.task('lint:dev', "Detect errors in JavaScript code (dev mode)", function() {
+  return runTask({isProd: false});
 });
+
+gulp.task('lint:prod', "Detect errors in JavaScript code (prod mode)", function() {
+  return runTask({isProd: true});
+});
+
+gulp.task('lint', ['lint:dev']);
 
 gulp.task('watch:lint', "Watch for changes in JS files and run lint", function(done) { // jshint ignore:line
   var cwd = process.cwd();

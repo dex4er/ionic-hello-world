@@ -17,19 +17,29 @@ var paths = {
   dest: conf.paths.tmp + '/sass'
 };
 
-gulp.task('sass', "Build CSS from Sass stylesheets", function(done) {
+function runTask(opts, done) {
   gulp.src(paths.src)
     .pipe($.sass({
       errLogToConsole: true,
-      sourceComments: global.isProd ? 'none' : 'map',
+      sourceComments: opts.isProd ? 'none' : 'map',
       sourceMap: 'sass',
-      outputStyle: global.isProd ? 'compressed' : 'nested'
+      outputStyle: opts.isProd ? 'compressed' : 'nested'
     }))
     .pipe(gulp.dest(paths.dest))
-    .on('error', error)
+    .on('error', opts.isProd ? error.prod : error.dev)
     .on('end', done)
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
+}
+
+gulp.task('sass:dev', "Build CSS from Sass stylesheets (dev mode)", function(done) {
+  runTask({isProd: false}, done);
 });
+
+gulp.task('sass:prod', "Build CSS from Sass stylesheets (prod mode)", function(done) {
+  runTask({isProd: true}, done);
+});
+
+gulp.task('sass', ['sass:dev']);
 
 gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint ignore:line
   $.watch(paths.src, function() {

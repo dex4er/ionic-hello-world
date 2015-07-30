@@ -5,7 +5,6 @@ var conf = require('./conf');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var path = require('path');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 var connectLogger = require("connect-logger");
@@ -38,15 +37,15 @@ browserSync.use(browserSyncSpa({
 
 var paths = {
   src: [
-    path.join(conf.paths.tmp, 'inject'),
-    path.join(conf.paths.tmp, 'sass'),
+    conf.paths.tmp + '/inject',
+    conf.paths.tmp + '/sass',
     conf.paths.src
   ],
   dev: conf.paths.dest
 };
 
 gulp.task('serve:src', "Run dev app in browser from source folder", function(done) { // jshint ignore:line
-  runSequence('sass', 'inject', 'lint', function() {
+  runSequence('sass:dev', 'inject:dev', 'lint:dev', function() {
     browserSyncInit(paths.src);
     mkdirp(conf.paths.tmp + '/inject/', {}, function() {
       $.watch(paths.src, browserSync.reload);
