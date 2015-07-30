@@ -17,7 +17,7 @@ conf.cordova.platforms.forEach(function(platform) {
   gulp.task('cordova:update:' + platform, "Update Cordova platform " + platform, function(done) {
     gulp.src('')
       .pipe($.shell('cordova platform update ' + platform))
-      .on('end', done)
+      .on('end', done);
   });
 });
 
