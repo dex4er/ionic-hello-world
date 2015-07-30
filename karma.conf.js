@@ -77,7 +77,7 @@ module.exports = function(config) {
     // that reference angular modules and sorting them in-place
     angularFilesort: {
       whitelist: [
-        'app/**/*.js'
+        conf.paths.src + '/**/*.js'
       ]
     }
   });
