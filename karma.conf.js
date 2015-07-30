@@ -1,8 +1,9 @@
+'use strict';
+
 // Karma configuration
 
 var conf = require('./gulp/conf');
 
-var path = require('path');
 var bowerFiles = require('main-bower-files');
 var glob = require('glob-array');
 
