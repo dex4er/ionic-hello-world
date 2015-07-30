@@ -3,7 +3,7 @@
 var $ = require('gulp-load-plugins')();
 
 module.exports = {
-  dev: function(error) { // jshint ignore:linex
+  dev: function(error) { // jshint ignore:line
     var args = Array.prototype.slice.call(arguments);
 
     // Send error to notification center with gulp-notify
