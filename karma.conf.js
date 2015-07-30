@@ -2,7 +2,7 @@
 
 // Karma configuration
 
-var conf = require('./gulp/conf');
+var conf = require('./config');
 
 var bowerFiles = require('main-bower-files');
 var glob = require('glob-array');

@@ -10,8 +10,8 @@ www/
 /info.txt
 /resources/*/
 
-/app/**/*.css
-/app/vendor/
+/src/**/*.css
+/src/vendor/
 
 # Eclipse
 /.classpath

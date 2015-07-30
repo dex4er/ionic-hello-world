@@ -1,6 +1,6 @@
 'use strict';
 
-var conf = require('./conf');
+var conf = require('../config');
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();

@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports = {
+
   paths: {
-    src: 'app',
+    src: 'src',
     dest: 'www',
     tmp: 'tmp',
     e2e: 'e2e',
-    bower: 'app/vendor',
-    scripts: 'app/components',
-    styles: 'app/styles',
+    bower: 'src/vendor',
+    scripts: 'src/app',
+    styles: 'src/styles',
     gulp: 'gulp'
   },
 
@@ -17,4 +18,5 @@ module.exports = {
   cordova: {
     platforms: ['android']
   }
+
 };
