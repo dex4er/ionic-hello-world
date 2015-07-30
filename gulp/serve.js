@@ -36,19 +36,25 @@ browserSync.use(browserSyncSpa({
 }));
 
 var paths = {
-  src: [
-    conf.paths.tmp + '/inject',
-    conf.paths.tmp + '/sass',
-    conf.paths.src
-  ],
+  src: {
+    browser: [
+      conf.paths.tmp + '/inject',
+      conf.paths.tmp + '/sass',
+      conf.paths.src
+    ],
+    watch: [
+      conf.paths.src + '/**/*',
+      conf.paths.bower + '/**/*'
+    ]
+  },
   dev: conf.paths.dest
 };
 
 gulp.task('serve:src', "Run dev app in browser from source folder", function(done) { // jshint ignore:line
   runSequence('sass:dev', 'inject:dev', 'lint:dev', function() {
-    browserSyncInit(paths.src);
+    browserSyncInit(paths.src.browser);
     mkdirp(conf.paths.tmp + '/inject/', {}, function() {
-      $.watch(paths.src, browserSync.reload);
+      $.watch(paths.src.watch, browserSync.reload);
       gulp.start('watch');
     });
   });
