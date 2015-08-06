@@ -24,8 +24,8 @@ function runTask(opts, done) {
       sourceMap: 'sass',
       outputStyle: opts.isProd ? 'compressed' : 'nested'
     }))
-    .pipe(gulp.dest(paths.dest))
     .on('error', opts.isProd ? error.prod : error.dev)
+    .pipe(gulp.dest(paths.dest))
     .on('end', done)
     .pipe($.if(browserSync.active, browserSync.reload({ stream: true })));
 }
