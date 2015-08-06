@@ -7,7 +7,6 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var browserSync = require('browser-sync');
-var runSequence = require('run-sequence');
 
 var paths = {
   src: [
@@ -42,7 +41,5 @@ gulp.task('sass:prod', "Build CSS from Sass stylesheets (prod mode)", function(d
 gulp.task('sass', ['sass:dev']);
 
 gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint ignore:line
-  $.watch(paths.src, function() {
-    runSequence('sass');
-  });
+  gulp.watch(paths.src, ['sass']);
 });

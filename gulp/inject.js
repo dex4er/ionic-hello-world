@@ -10,7 +10,6 @@ var _ = require('lodash');
 var bowerFiles = require('main-bower-files');
 var browserSync = require('browser-sync');
 var mkdirp = require('mkdirp');
-var runSequence = require('run-sequence');
 
 var paths = {
   src: {
@@ -60,8 +59,6 @@ gulp.task('inject', ['inject:dev']);
 
 gulp.task('watch:inject', "Watch for changes in injected HTML", function(done) { // jshint ignore:line
   mkdirp(conf.paths.tmp + '/sass/', {}, function() {
-    $.watch(_(paths.src).values().flatten().value(), function() {
-      runSequence('inject');
-    });
+    gulp.watch(_(paths.src).values().flatten().value(), ['inject']);
   });
 });
