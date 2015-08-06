@@ -15,6 +15,10 @@ module.exports = {
 
   browser: 'default',
 
+  server: {
+    log: false,
+  },
+
   cordova: {
     platforms: ['android']
   }

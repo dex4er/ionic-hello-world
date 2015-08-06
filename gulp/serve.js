@@ -13,6 +13,10 @@ var runSequence = require('run-sequence');
 
 // var proxyMiddleware = require('http-proxy-middleware');
 
+var nullMiddleware = function(req, res, next) {
+  next();
+};
+
 function browserSyncInit(baseDir) {
   var server = {
     baseDir: baseDir
@@ -24,7 +28,7 @@ function browserSyncInit(baseDir) {
     browser: conf.browser,
     logConnections: true,
     middleware: [
-      connectLogger()
+      conf.server.log ? connectLogger() : nullMiddleware,
       // proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
     ],
     timestamps: true
