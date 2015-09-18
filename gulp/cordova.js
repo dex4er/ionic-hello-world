@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 
 conf.cordova.platforms.forEach(function(platform) {
-  gulp.task('clean:cordova:' + platform, "Clean Cordova project folder for " + platform, function(done) {
+  gulp.task('cordova:clean:' + platform, "Clean Cordova project folder for " + platform, function(done) {
     var cordova = require('../platforms/' + platform + '/cordova/lib/build');
     cordova.runClean()
       .then(done);
@@ -21,9 +21,9 @@ conf.cordova.platforms.forEach(function(platform) {
   });
 });
 
-gulp.task('clean:cordova', "Clean all Cordova project folders", function(done) {
+gulp.task('cordova:clean', "Clean all Cordova project folders", function(done) {
   runSequence(conf.cordova.platforms.map(function(platform) {
-    return 'clean:cordova:' + platform;
+    return 'cordova:clean:' + platform;
   }), done);
 });
 

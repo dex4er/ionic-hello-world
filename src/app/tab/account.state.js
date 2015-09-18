@@ -7,7 +7,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/account',
       views: {
         'tab-account': {
-          templateUrl: 'app/tab/account.html',
+          templateUrl: '/app/tab/account.html',
           controller: 'AccountController'
         }
       }

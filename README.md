@@ -1,26 +1,60 @@
-Ionic App Base
-=====================
+# Ionic Hello World
 
-A starting project for Ionic that optionally supports using custom SCSS.
+## Preparing node (Debian/Ubuntu)
 
-## Using this project
-
-We recommend using the [Ionic CLI](https://github.com/driftyco/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
-
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
-
-```bash
-$ npm install -g ionic
+```
+$ cd ~
+$ sudo apt-get install build-essential git
+$ git clone https://github.com/creationix/nvm.git .nvm
+$ . ~/.nvm/nvm.sh
+$ nvm ls-remote
+$ echo stable > ~/.nvmrc
+$ nvm install
+$ echo '{"private":true}' > ~/package.json
+$ npm install --save npm
+$ export PATH="node_modules/.bin:../node_modules/.bin:$HOME/node_modules/.bin:$PATH"
 ```
 
-Then run:
+## Peparing working directory
 
-```bash
-$ ionic start myProject tabs
+```
+$ cd <working directory>
+$ npm install
+$ bower install
 ```
 
-More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/driftyco/ionic-cli) repo.
+## List available tasks
 
-## Issues
-Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
+```
+$ gulp help
+```
 
+## Start mock server
+
+```
+$ gulp mock
+```
+
+## Run in browser and watch for changes (development)
+
+```
+$ gulp serve
+```
+
+## Spec testing (single run)
+
+```
+$ gulp spec
+```
+
+## End to end testing (single run, requires mock and serve task)
+
+```
+$ gulp e2e
+```
+
+## Build project
+
+```
+$ gulp build
+```

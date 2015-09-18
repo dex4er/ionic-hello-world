@@ -17,7 +17,7 @@ module.exports = {
 
   paths: {
     src: 'src',
-    dest: 'webroot',
+    dest: 'www',
     tmp: 'tmp',
     e2e: 'e2e',
     bower: 'src/vendor',
