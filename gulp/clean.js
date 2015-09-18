@@ -16,5 +16,5 @@ gulp.task('clean:dest', "Clean dest folder", function (done) {
 });
 
 gulp.task('clean', "Clean all folders", function(done) {
-  runSequence('clean:dest', 'clean:tmp', 'clean:cordova', done);
+  runSequence('clean:dest', 'clean:tmp', done);
 });

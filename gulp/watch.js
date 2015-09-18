@@ -21,7 +21,7 @@ gulp.task('watch', "Watch for all changes", function(done) { // jshint ignore:li
   runSequence([
     'watch:gulp',
     'watch:sass',
-    'watch:inject',
+    'watch:html',
     'watch:lint',
     'watch:spec'
   ]);
