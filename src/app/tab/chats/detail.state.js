@@ -7,7 +7,7 @@ angular.module('app').config(function($stateProvider) {
       url: '/:chatId',
       views: {
         'tab-chats@tab': {
-          templateUrl: '/app/tab/chats/detail.html',
+          templateUrl: 'app/tab/chats/detail.html',
           controller: 'ChatsDetailController'
         }
       }
