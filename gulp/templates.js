@@ -32,9 +32,6 @@ function runTask(opts, done) {
       filename: 'templates.js',
       module: conf.angular.module,
       standalone: false,
-      path: function(path, base) {
-        return path.replace(base, conf.server.prefix);
-      }
     }))
     .on('error', opts.isProd ? error.prod : error.dev)
     .pipe(gulp.dest(paths.dest))
