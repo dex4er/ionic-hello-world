@@ -3,12 +3,12 @@
 angular.module('app').run(function($ionicHistory, $ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
     $ionicPlatform.registerBackButtonAction(function(event) {
-      console.log($ionicHistory.currentStateName());
+      var homeState = 'tab.dash';
       if (($ionicHistory.currentStateName().match(/\./g)||[]).length <= 1) {
-        if ($ionicHistory.currentStateName() === 'tab.dash') {
+        if ($ionicHistory.currentStateName() === homeState) {
           ionic.Platform.exitApp();
         } else {
-          $state.go('tab.dash');
+          $state.go(homeState);
         }
       } else {
         $ionicHistory.goBack();
