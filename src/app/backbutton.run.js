@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('app').run(function($ionicHistory, $ionicPlatform, $state) {
+angular.module('app').run(function($ionicHistory, $ionicPlatform, $state, defaultState) {
   $ionicPlatform.ready(function() {
     $ionicPlatform.registerBackButtonAction(function(event) {
-      var homeState = 'tab.dash';
       if (($ionicHistory.currentStateName().match(/\./g)||[]).length <= 1) {
-        if ($ionicHistory.currentStateName() === homeState) {
+        if ($ionicHistory.currentStateName() === defaultState) {
           ionic.Platform.exitApp();
         } else {
-          $state.go(homeState);
+          $state.go(defaultState);
         }
       } else {
         $ionicHistory.goBack();
