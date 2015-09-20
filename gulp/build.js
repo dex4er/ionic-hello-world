@@ -14,16 +14,22 @@ var removeEmptyDirectories = require('remove-empty-directories');
 
 var paths = {
   src: {
-    dev: [
-      conf.paths.src + '/**/*',
-      conf.paths.tmp +  '/sass/**/*',
-      conf.paths.tmp + '/templates/**/*',
-      conf.paths.tmp + '/html/**/*',
-      '!' + conf.paths.bower + '/**/*',
-      '!' + conf.paths.src + '/**/*.inj.*',
-      '!' + conf.paths.src + '/**/*.scss',
-      '!' + conf.paths.src + '/**/*.spec.*'
-    ],
+    dev: {
+      assets: [
+        conf.paths.src + '/**/*',
+        conf.paths.tmp +  '/sass/**/*',
+        conf.paths.tmp + '/templates/**/*',
+        conf.paths.tmp + '/html/**/*',
+        '!' + conf.paths.bower + '/**/*',
+        '!' + conf.paths.src + '/**/*.inj.*',
+        '!' + conf.paths.src + '/**/*.scss',
+        '!' + conf.paths.src + '/**/*.spec.*'
+      ],
+      bower: [
+        '**/*',
+        '!**/*.scss'
+      ]
+    },
     prod: {
       js: [
         conf.paths.tmp + '/templates',
@@ -57,8 +63,8 @@ var paths = {
 gulp.task('build:dev', "Build dev files into dest folder", function(done) {
   runSequence('sass:dev', 'html:prod', 'lint:dev', function() {
     merge2(
-      gulp.src(paths.src.dev),
-      gulp.src(bowerFiles(), {base: process.cwd() + '/' + conf.paths.src}))
+      gulp.src(paths.src.dev.assets),
+      gulp.src(bowerFiles(paths.src.dev.bower), {base: process.cwd() + '/' + conf.paths.src}))
       .pipe(gulp.dest(paths.dest))
       .on('end', done);
   });
@@ -69,7 +75,7 @@ gulp.task('build:prod', "Build prod files into dest folder", function(done) {
     merge2(
       gulp.src(_.flatten([paths.src.prod.assets, paths.src.uglify])),
       gulp.src(conf.assets),
-      gulp.src(bowerFiles(), {base: process.cwd() + '/' + conf.paths.src, filter: paths.src.prod.bower}))
+      gulp.src(bowerFiles(paths.src.prod.bower), {base: process.cwd() + '/' + conf.paths.src}))
       .on('error', error.prod)
       .pipe(gulp.dest(paths.dest))
       .on('end', function() {
