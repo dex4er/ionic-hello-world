@@ -23,6 +23,7 @@ var paths = {
       conf.paths.src + '/**/*.js',
       conf.paths.tmp + '/templates/**/*.js',
       '!' + conf.paths.bower + '/**/*',
+      '!' + conf.paths.src + '/cordova.js',
       '!' + conf.paths.src + '/inline/**/*',
       '!' + conf.paths.src + '/**/*.spec.js',
       '!' + conf.paths.src + '/**/*.mock.js'
