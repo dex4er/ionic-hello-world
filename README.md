@@ -29,12 +29,6 @@ $ bower install
 $ gulp help
 ```
 
-## Start mock server
-
-```
-$ gulp mock
-```
-
 ## Run in browser and watch for changes (development)
 
 ```
@@ -47,7 +41,7 @@ $ gulp serve
 $ gulp spec
 ```
 
-## End to end testing (single run, requires mock and serve task)
+## End to end testing (single run, requires serve task)
 
 ```
 $ gulp e2e
