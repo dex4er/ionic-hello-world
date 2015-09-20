@@ -9,6 +9,7 @@ var _ = require('lodash');
 
 var bowerFiles = require('main-bower-files');
 var browserSync = require('browser-sync');
+var eventStream = require('event-stream');
 var mkdirp = require('mkdirp');
 
 var paths = {
@@ -43,8 +44,10 @@ var paths = {
 
 function runTask(opts, done) {
   gulp.src(paths.src.inj)
-    .pipe($.inject(gulp.src(paths.src.css, {read: false}), {ignorePath: paths.dirs, addRootSlash: !opts.isProd}))
-    .pipe($.inject(gulp.src(paths.src.js).pipe($.angularFilesort()), {ignorePath: paths.dirs, addRootSlash: !opts.isProd}))
+    .pipe($.inject(eventStream.merge(
+      gulp.src(paths.src.js).pipe($.angularFilesort()),
+      gulp.src(paths.src.css, {read: false})
+    ), {ignorePath: paths.dirs, addRootSlash: false}))
     .pipe($.inject(gulp.src(bowerFiles({includeDev: !opts.isProd}), {read: false}), {ignorePath: paths.dirs, addRootSlash: !opts.isProd, name: 'bower'}))
     .pipe($.extReplace('.html', '.inj.html'))
     .on('error', opts.isProd ? error.prod : error.dev)
