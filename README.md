@@ -53,8 +53,32 @@ $ gulp spec
 $ gulp e2e
 ```
 
-## Build project
+## Build project (uncompressed)
+
+```
+$ gulp build:dev
+```
+
+## Build project (compressed)
 
 ```
 $ gulp build
+```
+
+## Update Cordova platform
+
+```
+$ gulp cordova:update
+```
+
+## Regenerate Cordova resources
+
+```
+$ ionic resource
+```
+
+## Run Cordova project
+
+```
+$ ionic run
 ```
