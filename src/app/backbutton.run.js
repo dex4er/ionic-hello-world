@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').run(function($ionicHistory, $ionicPlatform, $state, defaultState) {
+angular.module('app').run(function($ionicHistory, $ionicPlatform, $state, defaultState, IONIC_BACK_PRIORITY) {
   $ionicPlatform.ready(function() {
     $ionicPlatform.registerBackButtonAction(function(event) {
       if (($ionicHistory.currentStateName().match(/\./g)||[]).length <= 1) {
@@ -14,6 +14,6 @@ angular.module('app').run(function($ionicHistory, $ionicPlatform, $state, defaul
       }
       event.preventDefault();
       return false;
-    }, 101);
+    }, IONIC_BACK_PRIORITY.view);
   });
 });
