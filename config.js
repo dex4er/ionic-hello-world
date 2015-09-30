@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 var proxy = {
     mock: {
       target: 'http://localhost:8000/',
@@ -13,7 +15,11 @@ var proxy = {
     }
 };
 
-module.exports = {
+var constants = {
+  DEFAULT_STATE: 'tab.dash'
+};
+
+var config = {
 
   paths: {
     src: 'src',
@@ -55,6 +61,27 @@ module.exports = {
 
   fixture: function(done) {
     // something to do after build
+  },
+
+  constants: {
+    dev: _.defaultsDeep({
+      // specific for dev environment
+    }, constants),
+    prod: _.defaultsDeep({
+      // specific for prod environment
+    }, constants)
   }
 
 };
+
+try {
+    var local = require('./local');
+} catch (e) {
+    var local = {};
+}
+
+var _ = require('lodash');
+
+config = _.defaultsDeep(local, config);
+
+module.exports = config;

@@ -58,6 +58,7 @@ var paths = {
   src: {
     browser: [
       conf.paths.tmp + '/html',
+      conf.paths.tmp + '/constants',
       conf.paths.tmp + '/sass',
       conf.paths.src,
       '.'
@@ -87,7 +88,7 @@ gulp.task('serve:prod', "Run prod app in browser from dest folder", ['build:prod
 });
 
 gulp.task('serve', "Run dev app and watch for changes", function(done) { // jshint ignore:line
-  runSequence('sass:dev', 'html:dev', 'lint:dev', function() {
+  runSequence('sass:dev', 'constants:dev', 'html:dev', 'lint:dev', function() {
     browserSyncInit(paths.src.browser);
     mkdirp(conf.paths.tmp + '/html/', {}, function() {
       $.watch(paths.src.watch, browserSync.reload);

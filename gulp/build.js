@@ -18,6 +18,7 @@ var paths = {
       assets: [
         conf.paths.src + '/**/*',
         conf.paths.tmp +  '/sass/**/*',
+        conf.paths.tmp + '/constants/**/*',
         conf.paths.tmp + '/templates/**/*',
         conf.paths.tmp + '/html/**/*',
         '!' + conf.paths.bower + '/**/*',
@@ -32,6 +33,7 @@ var paths = {
     },
     prod: {
       js: [
+        conf.paths.tmp + '/constants',
         conf.paths.tmp + '/templates',
         //conf.paths.tmp + '/annotate',
         conf.paths.src
@@ -61,7 +63,7 @@ var paths = {
 };
 
 gulp.task('build:dev', "Build dev files into dest folder", function(done) {
-  runSequence('sass:dev', 'html:prod', 'lint:dev', function() {
+  runSequence('sass:dev', 'constants:dev', 'html:prod', 'lint:dev', function() {
     merge2(
       gulp.src(paths.src.dev.assets),
       gulp.src(bowerFiles(paths.src.dev.bower), {base: process.cwd() + '/' + conf.paths.src}))
@@ -71,7 +73,7 @@ gulp.task('build:dev', "Build dev files into dest folder", function(done) {
 });
 
 gulp.task('build:prod', "Build prod files into dest folder", function(done) {
-  runSequence('clean', 'sass:prod', 'templates:prod', 'html:prod', /*'lint:prod',*/ 'useref', 'uglify', function() {
+  runSequence('clean', 'sass:prod', 'constants:prod', 'templates:prod', 'html:prod', /*'lint:prod',*/ 'useref', 'uglify', function() {
     merge2(
       gulp.src(_.flatten([paths.src.prod.assets, paths.src.uglify])),
       gulp.src(conf.assets),

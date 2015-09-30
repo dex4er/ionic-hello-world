@@ -10,6 +10,7 @@ var paths = {
   src: {
     js: [
       conf.paths.tmp + '/templates',
+      conf.paths.tmp + '/constants',
       conf.paths.src
     ],
     css: [
