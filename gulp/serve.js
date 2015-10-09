@@ -73,7 +73,7 @@ var paths = {
 };
 
 gulp.task('serve:src', "Run dev app in browser from source folder", function(done) {
-  runSequence('sass:dev', 'html:dev', function() {
+  runSequence('sass:dev', 'constants:dev', 'html:dev', function() {
     browserSyncInit(paths.src.browser, {open: false});
     done();
   });
