@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 
 var gulp = require('gulp');
@@ -79,15 +81,15 @@ gulp.task('serve:src', "Run dev app in browser from source folder", function(don
   });
 });
 
-gulp.task('serve:dev', "Run dev app in browser from dest folder", ['build:dev'], function(done) { // jshint ignore:line
+gulp.task('serve:dev', "Run dev app in browser from dest folder", ['build:dev'], function(done) { // jshint strict:true, unused:vars
   browserSyncInit(paths.dev);
 });
 
-gulp.task('serve:prod', "Run prod app in browser from dest folder", ['build:prod'], function(done) { // jshint ignore:line
+gulp.task('serve:prod', "Run prod app in browser from dest folder", ['build:prod'], function(done) { // jshint strict:true, unused:vars
   browserSyncInit(paths.prod, {injectChanges: false, codeSync: false});
 });
 
-gulp.task('serve', "Run dev app and watch for changes", function(done) { // jshint ignore:line
+gulp.task('serve', "Run dev app and watch for changes", function(done) { // jshint strict:true, unused:vars
   runSequence('sass:dev', 'constants:dev', 'html:dev', 'lint:dev', function() {
     browserSyncInit(paths.src.browser);
     mkdirp(conf.paths.tmp + '/html/', {}, function() {

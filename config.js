@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var _ = require('lodash');
 
 var proxy = {

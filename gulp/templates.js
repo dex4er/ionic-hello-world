@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 
@@ -49,7 +51,7 @@ gulp.task('templates:prod', "Build all AngularJS templates (prod mode)", functio
 
 gulp.task('templates', ['templates:dev']);
 
-gulp.task('watch:templates', "Watch for changes in templates HTML", function(done) { // jshint ignore:line
+gulp.task('watch:templates', "Watch for changes in templates HTML", function(done) { // jshint strict:true, unused:vars
   mkdirp(conf.paths.tmp + '/html/', {}, function() {
     gulp.watch(_(paths.src).values().flatten().value(), ['templates']);
   });

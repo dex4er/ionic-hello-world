@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 
@@ -66,7 +68,7 @@ gulp.task('html:prod', "Inject styles and scripts into HTML (prod mode)", functi
 
 gulp.task('html', ['html:dev']);
 
-gulp.task('watch:html', "Watch for changes in injected HTML", function(done) { // jshint ignore:line
+gulp.task('watch:html', "Watch for changes in injected HTML", function(done) { // jshint strict:true, unused:vars
   mkdirp(conf.paths.tmp + '/sass/', {}, function() {
     gulp.watch(_(paths.src).values().flatten().value(), ['html']);
   });

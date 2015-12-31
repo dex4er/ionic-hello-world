@@ -1,12 +1,14 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 
-var karma = require('karma').Server;
+var karma = require('karma');
 
 gulp.task('spec', "Run spec tests", function(done) {
-  new karma({
+  new karma.Server({
     configFile: __dirname + '/../karma.conf.js',
     reporters: ['spec', 'notify'],
     singleRun: true
@@ -19,7 +21,7 @@ gulp.task('spec', "Run spec tests", function(done) {
 });
 
 gulp.task('watch:spec', "Watch for changes in JS files and run spec tests", function(done) {
-  new karma({
+  new karma.Server({
     configFile: __dirname + '/../karma.conf.js',
     reporters: ['dots', 'notify'],
     singleRun: false

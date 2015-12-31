@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 
@@ -70,6 +72,6 @@ gulp.task('sass:prod', "Build CSS from Sass stylesheets (prod mode)", function(d
 
 gulp.task('sass', ['sass:dev']);
 
-gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint ignore:line
+gulp.task('watch:sass', "Watch for changes in Sass", function(done) { // jshint strict:true, unused:vars
   gulp.watch(paths.src.scss, ['sass']);
 });

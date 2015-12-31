@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 

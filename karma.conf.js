@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 // Karma configuration
 
 var conf = require('./config');

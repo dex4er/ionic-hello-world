@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 
@@ -41,7 +43,7 @@ gulp.task('annotate:prod', "Inject styles and scripts into annotate (prod mode)"
 
 gulp.task('annotate', ['annotate:dev']);
 
-gulp.task('watch:annotate', "Watch for changes in annotated JS", function(done) { // jshint ignore:line
+gulp.task('watch:annotate', "Watch for changes in annotated JS", function(done) { // jshint strict:true, unused:vars
   mkdirp(conf.paths.tmp + '/annotate', {}, function() {
     gulp.watch(_(paths.src).values().flatten().value(), ['annotate']);
   });

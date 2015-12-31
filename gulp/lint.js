@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 
 var gulp = require('gulp');
@@ -53,7 +55,7 @@ gulp.task('lint:prod', "Detect errors in JavaScript code (prod mode)", function(
 
 gulp.task('lint', ['lint:dev']);
 
-gulp.task('watch:lint', "Watch for changes in JS files and run lint", function(done) { // jshint ignore:line
+gulp.task('watch:lint', "Watch for changes in JS files and run lint", function(done) { // jshint strict:true, unused:vars
   $.watch(paths.src, function(file) {
 
     var successReporter = es.map(function(file, cb) {

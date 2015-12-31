@@ -1,5 +1,7 @@
 'use strict';
 
+/* jshint strict:true, node:true */
+
 var conf = require('../config');
 var error = require('./error');
 
@@ -43,6 +45,6 @@ gulp.task('constants:prod', "Build all AngularJS constants (prod mode)", functio
 
 gulp.task('constants', ['constants:dev']);
 
-gulp.task('watch:constants', "Watch for changes in constants HTML", function(done) { // jshint ignore:line
+gulp.task('watch:constants', "Watch for changes in constants HTML", function(done) { // jshint strict:true, unused:vars
   gulp.watch(paths.src, ['constants']);
 });
