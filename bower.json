@@ -2,16 +2,15 @@
   "name": "HelloIonic",
   "private": "true",
   "dependencies": {
-    "angular-animate": "~1.4.7",
-    "angular-sanitize": "~1.4.7",
+    "angular-animate": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
     "angular-ui-router": "~0.2.15",
-    "angular": "~1.4.7",
-    "ionic": "~1.1.0",
-    "ionicons": "~2.0.1",
-    "angular-mocks": "~1.4.7"
+    "angular": "~1.4.8",
+    "ionic": "~1.2.1",
+    "ionicons": "~2.0.1"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.6"
+    "angular-mocks": "~1.4.8"
   },
   "overrides": {
     "ionic": {
@@ -30,10 +29,10 @@
     }
   },
   "resolutions": {
-    "angular-animate": "~1.4.7",
-    "angular-sanitize": "~1.4.7",
+    "angular-animate": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
     "angular-ui-router": "~0.2.15",
-    "angular": "~1.4.7",
-    "ionic": "~1.1.0"
+    "angular": "~1.4.8",
+    "ionic": "~1.2.1"
   }
 }

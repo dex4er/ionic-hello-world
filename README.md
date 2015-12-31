@@ -76,3 +76,17 @@ $ ionic resource
 ```
 $ ionic run
 ```
+
+## Upgrade of libraries
+
+```
+$ ncu -ua
+$ npm install
+```
+
+## Upgrade of assets
+
+```
+$ ncu -m bower -ua
+$ npm install
+```
