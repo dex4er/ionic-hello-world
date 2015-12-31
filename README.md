@@ -59,10 +59,17 @@ $ gulp build:dev
 $ gulp build
 ```
 
+## Add Cordova platform
+
+```
+$ gulp cordova:platform:add
+$ android update project --subprojects --path platforms/android --target android-23 --library CordovaLib
+```
+
 ## Update Cordova platform
 
 ```
-$ gulp cordova:update
+$ gulp cordova:platform:update
 ```
 
 ## Regenerate Cordova resources
