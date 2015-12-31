@@ -1,6 +1,12 @@
 'use strict';
 
-angular.module('app').run(function($ionicHistory, $ionicPlatform, $state, DEFAULT_STATE, IONIC_BACK_PRIORITY) {
+angular.module('app').run(function(
+    DEFAULT_STATE,
+    IONIC_BACK_PRIORITY,
+    $ionicHistory,
+    $ionicPlatform,
+    $state
+) {
   $ionicPlatform.ready(function() {
     $ionicPlatform.registerBackButtonAction(function(event) {
       if (($ionicHistory.currentStateName().match(/\./g)||[]).length <= 1) {
