@@ -18,7 +18,8 @@ var proxy = {
 };
 
 var constants = {
-  DEFAULT_STATE: 'tab.dash'
+  DEFAULT_STATE: 'tab.dash',
+  VERSION: require('./version')
 };
 
 var config = {
@@ -68,9 +69,11 @@ var config = {
   constants: {
     dev: _.defaultsDeep({
       // specific for dev environment
+      DEBUG: true
     }, constants),
     prod: _.defaultsDeep({
       // specific for prod environment
+      DEBUG: false
     }, constants)
   }
 
