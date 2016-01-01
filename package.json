@@ -76,11 +76,5 @@
     "selenium-standalone": "^4.8.0",
     "sinon": "^1.17.2",
     "webdriverio": "^3.4.0"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-whitelist"
-  ],
-  "cordovaPlatforms": [
-    "android"
-  ]
+  }
 }
