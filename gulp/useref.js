@@ -7,6 +7,7 @@ var error = require('./error');
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var _ = require('lodash');
 
 var paths = {
   src: {
@@ -27,19 +28,9 @@ var paths = {
 };
 
 gulp.task('useref', "Link js and css files", function(done) {
-  var assetsJs = $.useref.assets({
-    searchPath: paths.src.js
-  });
-  var assetsCss = $.useref.assets({
-    searchPath: paths.src.css
-  });
   gulp.src(paths.src.html)
     .on('error', error.prod)
-    .pipe(assetsJs)
-    .pipe(assetsJs.restore())
-    .pipe(assetsCss)
-    .pipe(assetsCss.restore())
-    .pipe($.useref().on('error', error.prod))
+    .pipe($.useref({searchPath: _.union(paths.src.js, paths.src.css)}).on('error', error.prod))
     .pipe($.inlineSource({rootpath: '.'}).on('error', error.prod))
     .pipe(gulp.dest(paths.dest))
     .on('end', done);
