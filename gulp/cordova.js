@@ -24,14 +24,29 @@ function getAndroidCommand() {
   return process.env.ANDROID_HOME ? process.env.ANDROID_HOME + '/tools/android' : 'android';
 }
 
-conf.cordova.platforms.forEach(function(platform) {
+function getCordovaPlatforms() {
+  var data = fs.readFileSync(__dirname + '/../config.xml').toString();
+  var etree = et.parse(data);
+  return etree.findall("./engine").map(function(el) { return el.get('name'); });
+}
+
+function getCordovaPlugins() {
+  var data = fs.readFileSync(__dirname + '/../config.xml').toString();
+  var etree = et.parse(data);
+  return etree.findall("./plugin").map(function(el) { return el.get('name'); });
+}
+
+var platforms = getCordovaPlatforms();
+var plugins = getCordovaPlugins();
+
+platforms.forEach(function(platform) {
   gulp.task('cordova:clean:' + platform, "Clean Cordova project folder for " + platform, function(done) {
     var cordova = require('../platforms/' + platform + '/cordova/lib/build');
     cordova.runClean()
       .then(done);
   });
 
-  gulp.task('cordova:platform:add:' + platform, "Add Cordova platform " + platform, function(done) {
+  gulp.task('cordova:platform:install:' + platform, "Install Cordova platform " + platform, function(done) {
     mkdirp(conf.paths.dest, {}, function() {
       var version = platform === 'android' ? getAndroidTargetSdkVersion() : undefined;
       var android = version ? getAndroidCommand() : undefined;
@@ -55,19 +70,41 @@ conf.cordova.platforms.forEach(function(platform) {
 });
 
 gulp.task('cordova:clean', "Clean all Cordova project folders", function(done) {
-  runSequence(conf.cordova.platforms.map(function(platform) {
+  runSequence(platforms.map(function(platform) {
     return 'cordova:clean:' + platform;
   }), done);
 });
 
-gulp.task('cordova:platform:add', "Add all Cordova platforms", function(done) {
-  runSequence(conf.cordova.platforms.map(function(platform) {
+gulp.task('cordova:platform:install', "Install all Cordova platforms", function(done) {
+  runSequence(platforms.map(function(platform) {
     return 'cordova:platform:add:'+platform;
   }), done);
 });
 
 gulp.task('cordova:platform:update', "Update all Cordova platforms", function(done) {
-  runSequence(conf.cordova.platforms.map(function(platform) {
+  runSequence(platforms.map(function(platform) {
     return 'cordova:platform:update:'+platform;
   }), done);
+});
+
+gulp.task('cordova:plugins:install', "Install all Cordova plugins", function(done) {
+  mkdirp(conf.paths.dest, {}, function() {
+    gulp.src('')
+      .pipe($.shell('cordova plugin add ' + plugins.join(' ') + ' --save'))
+      .on('end', done);
+  });
+});
+
+gulp.task('cordova:plugins:upgrade', "Upgrade all Cordova plugins", function(done) {
+  var installedPlugins = [];
+  try {
+    installedPlugins = Object.keys(JSON.parse(fs.readFileSync(__dirname + '/../plugins/fetch.json').toString()));
+  } catch(e) {
+  }
+  mkdirp(conf.paths.dest, {}, function() {
+    gulp.src('')
+      .pipe($.if(!!plugins, $.shell('cordova plugin rm ' + installedPlugins.join(' ') + ' --save')))
+      .pipe($.shell('cordova plugin add ' + plugins.join(' ') + ' --save'))
+      .on('end', done);
+  });
 });

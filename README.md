@@ -59,16 +59,10 @@ $ gulp build:dev
 $ gulp build
 ```
 
-## Add Cordova platform
+## Install Cordova platforms
 
 ```
-$ gulp cordova:platform:add
-```
-
-## Update Cordova platform
-
-```
-$ gulp cordova:platform:update
+$ gulp cordova:platform:install
 ```
 
 ## Regenerate Cordova resources
@@ -83,22 +77,34 @@ $ ionic resource
 $ ionic run
 ```
 
-## Upgrade of libraries
+## Change version number for application
+
+```
+$ gulp bump --setversion=0.0.2
+```
+
+## Upgrade libraries
 
 ```
 $ ncu -ua
 $ npm install
 ```
 
-## Upgrade of assets
+## Upgrade assets
 
 ```
 $ ncu -m bower -ua
 $ npm install
 ```
 
-## Change version number for application
+## Upgrade Cordova platform
 
 ```
-$ gulp bump --setversion=0.0.2
+$ gulp cordova:platform:update
+```
+
+## Upgrade Cordova plugins
+
+```
+$ gulp cordova:plugins:upgrade
 ```

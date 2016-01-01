@@ -46,10 +46,6 @@ var config = {
     }
   },
 
-  cordova: {
-    platforms: ['android']
-  },
-
   angular: {
     module: 'app',
     templates: [
