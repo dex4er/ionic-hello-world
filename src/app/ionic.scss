@@ -1,0 +1,9 @@
+/* Footer can contain button */
+.bar-footer {
+  height: $button-height + $button-block-margin * 2 + $button-small-padding;
+
+  .button {
+    min-height: $button-height + 5px;
+    font-size: $button-font-size;
+  }
+}
