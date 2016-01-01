@@ -1,5 +1,6 @@
 {
-  "name": "HelloIonic",
+  "name": "ionic-hello-world",
+  "version": "0.0.1",
   "private": "true",
   "dependencies": {
     "angular-animate": "~1.4.8",

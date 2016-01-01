@@ -96,3 +96,9 @@ $ npm install
 $ ncu -m bower -ua
 $ npm install
 ```
+
+## Change version number for application
+
+```
+$ gulp bump --setversion=0.0.2
+```
