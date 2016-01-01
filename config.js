@@ -42,7 +42,7 @@ var config = {
     log: false,
     prefix: '/',
     proxy: {
-      // '/api': proxy.mock,
+      '/somepath': proxy.mock,
     }
   },
 
@@ -62,7 +62,7 @@ var config = {
     'src/**/*.ico',
   ],
 
-  fixture: function(done) {
+  fixture: function(done) { // jshint strict:true, unused:vars
     // something to do after build
   },
 

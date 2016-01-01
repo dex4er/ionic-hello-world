@@ -19,6 +19,7 @@ notify.logLevel(0);
 
 var paths = {
   src: [
+    './*.js',
     conf.paths.src + '/**/*.js',
     conf.paths.gulp + '/**/*.js',
     '!' + conf.paths.bower + '/**/*'
