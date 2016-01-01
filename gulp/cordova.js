@@ -46,7 +46,7 @@ platforms.forEach(function(platform) {
       .then(done);
   });
 
-  gulp.task('cordova:platform:install:' + platform, "Install Cordova platform " + platform, function(done) {
+  gulp.task('cordova:platforms:install:' + platform, "Install Cordova platform " + platform, function(done) {
     mkdirp(conf.paths.dest, {}, function() {
       var version = platform === 'android' ? getAndroidTargetSdkVersion() : undefined;
       var android = version ? getAndroidCommand() : undefined;
@@ -57,7 +57,7 @@ platforms.forEach(function(platform) {
     });
   });
 
-  gulp.task('cordova:platform:update:' + platform, "Update Cordova platform " + platform, function(done) {
+  gulp.task('cordova:platforms:update:' + platform, "Update Cordova platform " + platform, function(done) {
     mkdirp(conf.paths.dest, {}, function() {
       var version = platform === 'android' ? getAndroidTargetSdkVersion() : undefined;
       var android = version ? getAndroidCommand() : undefined;
@@ -75,15 +75,15 @@ gulp.task('cordova:clean', "Clean all Cordova project folders", function(done) {
   }), done);
 });
 
-gulp.task('cordova:platform:install', "Install all Cordova platforms", function(done) {
+gulp.task('cordova:platforms:install', "Install all Cordova platforms", function(done) {
   runSequence(platforms.map(function(platform) {
-    return 'cordova:platform:add:'+platform;
+    return 'cordova:platforms:install:'+platform;
   }), done);
 });
 
-gulp.task('cordova:platform:update', "Update all Cordova platforms", function(done) {
+gulp.task('cordova:platforms:update', "Update all Cordova platforms", function(done) {
   runSequence(platforms.map(function(platform) {
-    return 'cordova:platform:update:'+platform;
+    return 'cordova:platforms:update:'+platform;
   }), done);
 });
 
