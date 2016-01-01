@@ -18,7 +18,7 @@ var paths = {
 gulp.task('uglify', "Uglify js and css files", function(done) {
   gulp.src(paths.src.useref)
     .on('error', error.prod)
-    .pipe($.if('*.css', $.minifyCss().on('error', error.prod)))
+    .pipe($.if('*.css', $.cssnano().on('error', error.prod)))
     .pipe($.if('*.js', $.ngAnnotate().on('error', error.prod)))
     .pipe($.if('*.js', $.uglify().on('error', error.prod)))
     .pipe($.if('*.js', $.replace(/[\x0d]/g, '').on('error', error.prod)))
