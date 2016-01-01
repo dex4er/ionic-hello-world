@@ -63,7 +63,6 @@ $ gulp build
 
 ```
 $ gulp cordova:platform:add
-$ android update project --subprojects --path platforms/android --target android-23 --library CordovaLib
 ```
 
 ## Update Cordova platform
