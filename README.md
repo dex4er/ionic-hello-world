@@ -59,6 +59,12 @@ $ gulp build:dev
 $ gulp build
 ```
 
+## Install Cordova plugins
+
+```
+$ gulp cordova:plugins:install
+```
+
 ## Install Cordova platforms
 
 ```
