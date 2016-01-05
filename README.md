@@ -80,7 +80,7 @@ $ ionic resource
 ## Run Cordova project
 
 ```
-$ ionic run
+$ gulp cordova:run
 ```
 
 ## Change version number for application
