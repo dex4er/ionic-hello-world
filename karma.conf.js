@@ -26,6 +26,7 @@ module.exports = function(config) {
     files: bowerFiles('**/*.js', {includeDev: true}).concat(
       glob.sync([
         conf.paths.src + '/**/*.js',
+        conf.paths.tmp + '/constants/**/*.js',
         '!' + conf.paths.bower + '/**/*'
       ])
     ),
